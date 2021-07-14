@@ -15,7 +15,7 @@ RUN yum clean all \
  && yum -y install libzstd git224 \
     make redhat-lsb-core glibc-devel \
     openssl-devel xz-devel bzip2-devel libcurl-devel \
-    openssl libzstd-devel cyrus-sasl-devel xxhash \
+    openssl libzstd-devel cyrus-sasl-devel xxhash xxhash-libs \
  && yum clean all
 
 # Common system tools requried to run various bash scripts
