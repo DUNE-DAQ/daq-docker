@@ -49,9 +49,7 @@ jobs:
             ghcr.io/${{ github.repository }}
           tags: |
             type=raw,value=latest
-            # branch event
             type=ref,event=branch
-            # tag event
             type=ref,event=tag
       
       - name: Build and push Docker images
