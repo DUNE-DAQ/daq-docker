@@ -44,7 +44,6 @@ jobs:
             dunedaq/sl7-minimal
             ghcr.io/${{ github.repository }}
           tags: |
-            # default
             type=raw,value=latest
       
       - name: Build and push Docker images
