@@ -46,7 +46,7 @@ jobs:
         with:
           images: |
             dunedaq/sl7-minimal
-            ghcr.io/${{ github.repository }}
+            ghcr.io/DUNE-DAQ/sl7-minimal
           tags: |
             type=raw,value=latest
             type=ref,event=branch
