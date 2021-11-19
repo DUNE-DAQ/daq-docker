@@ -1,4 +1,4 @@
-name: Build c8 docker image
+name: Build c8-minimal docker image
 
 on:
   push:
