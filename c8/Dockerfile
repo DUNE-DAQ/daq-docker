@@ -24,6 +24,7 @@ RUN yum clean all \
  libuuid-devel mesa-libGL-devel mesa-libGLU-devel ncurses-devel \
  nss_wrapper openldap-devel openssl-devel perl perl-DBD-SQLite \
  perl-ExtUtils-MakeMaker readline-devel swig tcl-devel tk-devel \
+ libunwind-devel \
  xmlto xterm xxhash xz-devel zlib-devel libzstd libzstd-devel openssl \
  && yum clean all
 
