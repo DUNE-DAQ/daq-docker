@@ -1,4 +1,4 @@
-name: BUILD sl7 docker image
+name: Build c8 docker image
 
 on:
   push:
@@ -7,10 +7,10 @@ on:
       - 'v*'
     paths-ignore:
       - 'README.md'
-      - 'c8/*'
-      - 'c8-minimal/*'
+      - 'sl7/*'
       - 'sl7-minimal/*'
       - 'sl7-ci/*'
+      - 'c8/*'
       - '.github/*'
 
   workflow_dispatch:
@@ -46,8 +46,8 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: |
-            dunedaq/sl7
-            ghcr.io/DUNE-DAQ/sl7
+            dunedaq/c8-minimal
+            ghcr.io/DUNE-DAQ/c8-minimal
           tags: |
             type=raw,value=latest
             type=ref,event=branch
@@ -56,7 +56,7 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
-          context: ./sl7
+          context: ./c8-minimal
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

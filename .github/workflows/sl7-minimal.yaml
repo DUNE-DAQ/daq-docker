@@ -8,6 +8,7 @@ on:
     paths-ignore:
       - 'README.md'
       - 'c8/*'
+      - 'c8-minimal/*'
       - 'sl7/*'
       - 'sl7-ci/*'
       - '.github/*'

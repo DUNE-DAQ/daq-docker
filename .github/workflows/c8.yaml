@@ -9,6 +9,7 @@ on:
       - 'README.md'
       - 'sl7/*'
       - 'sl7-minimal/*'
+      - 'c8-minimal/*'
       - 'sl7-ci/*'
       - '.github/*'
 
