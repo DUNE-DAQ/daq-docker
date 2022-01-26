@@ -25,7 +25,7 @@ RUN yum clean all \
  nss_wrapper openldap-devel openssl-devel perl perl-DBD-SQLite \
  perl-ExtUtils-MakeMaker readline-devel swig tcl-devel tk-devel \
  libunwind-devel \
- xmlto xterm xxhash xz-devel zlib-devel libzstd libzstd-devel openssl \
+ xmlto xterm xxhash xz-devel zlib-devel  compat-openssl10 openssl \
  && yum clean all
 
 RUN yum clean all \
