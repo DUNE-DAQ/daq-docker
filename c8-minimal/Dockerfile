@@ -1,6 +1,7 @@
 # This Dockerfile is used to build an headles vnc image based on Centos
 
-FROM centos:centos8
+#FROM centos:centos8
+FROM quay.io/centos/centos:stream8
 
 ENV REFRESHED_AT 2021-11-18
 
