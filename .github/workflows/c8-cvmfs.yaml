@@ -21,7 +21,6 @@ jobs:
   build_c8_image_with_cvmfs_mirror:
     name: Build c8 image with cvmfs mirror and push to multiple registries
     runs-on: [self-hosted, cvmfs]
-    environment: dockerhub
     permissions:
       packages: write
       contents: read
