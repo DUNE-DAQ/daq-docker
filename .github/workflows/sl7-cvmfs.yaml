@@ -1,0 +1,80 @@
+name: Build sl7-cvmfs docker image
+
+on:
+  push:
+    branches: [ develop ]
+    tags:
+      - 'v*'
+    paths-ignore:
+      - 'README.md'
+      - 'c8/*'
+      - 'c8-minimal/*'
+      - 'sl7/*'
+      - 'sl7-minimal/*'
+      - '.github/*'
+
+  workflow_dispatch:
+
+jobs:
+
+  build_sl7_image_with_cvmfs_mirror:
+    name: Build sl7 image with cvmfs mirror and push to multiple registries
+    runs-on: ubuntu-latest
+    environment: dockerhub
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+        with:
+          repository: DUNE-DAQ/daq-docker
+          path: daq-docker
+      
+      - name: add CernVM-FS
+        uses: cvmfs-contrib/github-action-cvmfs@v2
+        with:
+          cvmfs_repositories: 'dunedaq.opensciencegrid.org,dunedaq-development.opensciencegrid.org'
+
+      - name: Test CernVM-FS
+        run: ls /Users/Shared/cvmfs/dunedaq-development.opensciencegrid.org
+
+      - name: Test CernVM-FS in docker and set up dbt workarea
+        run: |
+             docker run --rm -v /Users/Shared/cvmfs/dunedaq-development.opensciencegrid.org:/cvmfs/dunedaq-development.opensciencegrid.org -v /Users/Shared/cvmfs/dunedaq.opensciencegrid.org:/cvmfs/dunedaq.opensciencegrid.org -v $GITHUB_WORKSPACE/daq-docker/sl7-ci:/scratch dunedaq/sl7-minimal:latest /scratch/build-release.sh
+             ls $GITHUB_WORKSPACE/daq-docker/sl7-ci
+
+      - name: create cvmfs mirror
+        run: |
+             docker run --rm -v /Users/Shared/cvmfs/dunedaq-development.opensciencegrid.org:/cvmfs/dunedaq-development.opensciencegrid.org -v /Users/Shared/cvmfs/dunedaq.opensciencegrid.org:/cvmfs/dunedaq.opensciencegrid.org -v $GITHUB_WORKSPACE/daq-docker/sl7-ci:/scratch dunedaq/sl7-minimal:latest /scratch/create-image.sh 
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+      - name: Log in to the Container registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: |
+            dunedaq/sl7-minimal
+            ghcr.io/DUNE-DAQ/sl7-minimal
+          tags: |
+            type=raw,value=cvmfs
+      
+      - name: Build and push Docker images
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: ${{ github.workspace }}/sl7-ci
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}

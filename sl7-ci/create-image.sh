@@ -5,53 +5,49 @@ daq_buildtools_branch="develop"
 release="dunedaq-develop"
 package_checkout_branch="develop" # dunedaq-v2.4.0 or develop
 workdir=/scratch
-outdir="$workdir/image"
-outdir_release="$outdir/releases/$release"
-outdir_cvmfs="$workdir/image/cvmfs/dunedaq.opensciencegrid.org"
-outdir_cvmfsdev="$workdir/image/cvmfs/dunedaq-development.opensciencegrid.org"
+outdir="$workdir/image-sl7"
+outdir_cvmfs="$workdir/image-sl7/cvmfs/dunedaq.opensciencegrid.org"
+outdir_cvmfsdev="$workdir/image-sl7/cvmfs/dunedaq-development.opensciencegrid.org"
 
 rm -rf $outdir
 
-export DBT_ROOT=$workdir/daq-buildtools
-source ${DBT_ROOT}/scripts/dbt-setup-tools.sh
-add_many_paths PATH ${DBT_ROOT}/bin ${DBT_ROOT}/scripts
-source $workdir/daq-release/configs/$release/dbt-settings.sh
+create_products_area () {
+  target_products_dir=$1
+  mkdir -p $target_products_dir
+  pushd $target_products_dir
+  ln -s /cvmfs/dunedaq.opensciencegrid.org/products/ups .
+  cp -pr /cvmfs/dunedaq.opensciencegrid.org/products/.upsfiles .
+  cp -pr /cvmfs/dunedaq.opensciencegrid.org/products/.updfiles .
+  echo "s_setenv UPS_THIS_DB $SETUPS_DIR" > setups_layout
+  echo "s_setenv PROD_DIR_PREFIX $SETUPS_DIR" >> setups_layout
+  ln -s ups/v6_0_8/Linux64bit+3.10-2.17/ups/setups .
+  ln -s ups/v6_0_8/Linux64bit+3.10-2.17/ups/setup .
+  popd
+}
+
+
+source $workdir/daq-buildtools/env.sh
 export PATH=$workdir/daq-release/scripts:$PATH
-
-setup_ups_product_areas
-setup_ups_products dune_devtools
-setup_ups_products dune_systems
-setup_ups_products dune_externals
-
-create-ups-products-area.sh -t $outdir_release/packages
-create-ups-products-area.sh -t $outdir_release/externals
-
-cp $workdir/daq-release/configs/$release/dbt-settings.sh $outdir_release
-cp $workdir/daq-release/configs/$release/dbt-build-order.cmake $outdir_release
-cp $workdir/daq-release/configs/$release/pyvenv_requirements.txt $outdir_release
-
-upsify-daq-pkgs.py -w $workdir/dev -i -o $outdir_release/packages
-echo " dune_daqpackages=(" >> $outdir_release/dbt-settings.sh
-pushd $outdir_release/packages
-find . -type d -name "*.version"|grep -v ups|sed 's/\.\//"/g'|sed 's/\.version/ e19:prof\"/g'|tr '/' ' '|sed -e 's/^/    /'>> $outdir_release/dbt-settings.sh
-echo ")">> $outdir_release/dbt-settings.sh
-
-sed -i 's,.*dunedaq.open.*,    "/releases/'"$release"'/packages",' $outdir_release/dbt-settings.sh
-sed -i 's,.*dunedaq-development.open.*,    "/releases/'"$release"'/externals",' $outdir_release/dbt-settings.sh
-
+pushd $workdir/dev
+dbt-workarea-env -s externals || true
+setup clang v7_0_0rc3
 popd
 
-create-ups-products-area.sh -t $outdir_cvmfs/products
-create-ups-products-area.sh -t $outdir_cvmfsdev/products
 
-ups active|tail -n +2 | grep -v ups| awk '{ printf "\"%s %s %s\"\n", $1, $2, $NF}'|while read i; do
+create_products_area $outdir_cvmfs/products
+rm -rf $outdir_cvmfs/products/ups
+cp -pr /cvmfs/dunedaq.opensciencegrid.org/products/ups $outdir_cvmfs/products
+create_products_area $outdir_cvmfsdev/products
+
+
+ups active|tail -n +2 | awk '{ printf "\"%s %s %s\"\n", $1, $2, $NF}'|while read i; do
     i=$(echo $i|tr '"' ' ')
     prd=$(echo $i|cut -d ' ' -f 1)
     prd_ver=$(echo $i|cut -d ' ' -f 2)
     products_dir=$(echo $i|cut -d ' ' -f 3)
     out_cvmfs=$outdir/${products_dir#/}
 
-    exclude_list="clang ups"
+    exclude_list="xclang"
     #exclude_list="gcc boost clang hdf5 ups"
     if [[ $exclude_list =~ (^|[[:space:]])"$prd"($|[[:space:]]) ]]; then
 	echo "for $prd, outcvmfs is $out_cvmfs"
@@ -78,8 +74,8 @@ ups active|tail -n +2 | grep -v ups| awk '{ printf "\"%s %s %s\"\n", $1, $2, $NF
 		mkdir -p `dirname ${link_dests[0]}`
 		for k in `seq 0 2`; do
                     if [ -d ${srcs[k]} ]; then
-                        rsync -ah ${srcs[k]} `dirname  ${cvmfs_dests[0]}`
 			echo "found ${srcs[k]}"
+			rsync -ah --exclude '*e19*debug*' --exclude 'Linux64bit+4.18*' --exclude 'slf8.x86_64*' ${srcs[k]} `dirname  ${cvmfs_dests[0]}`
                         ln -s ${srcs[k]} ${link_dests[k]}
 		    fi
                 done
@@ -87,7 +83,20 @@ ups active|tail -n +2 | grep -v ups| awk '{ printf "\"%s %s %s\"\n", $1, $2, $NF
     fi
 done 
 
+
+# add gcc v9_3_0
+
+rsync -ah --exclude '*e19*debug*' --exclude 'Linux64bit+4.18*' --exclude 'slf8.x86_64*' /cvmfs/dunedaq.opensciencegrid.org/products/gcc/v9_3_0 $outdir_cvmfs/products/gcc
+rsync -ah /cvmfs/dunedaq.opensciencegrid.org/products/gcc/v9_3_0.version $outdir_cvmfs/products/gcc
+
+pushd $outdir_release/externals/gcc
+ln -s /cvmfs/dunedaq.opensciencegrid.org/products/gcc/v9_3_0 .
+ln -s /cvmfs/dunedaq.opensciencegrid.org/products/gcc/v9_3_0.version .
+popd
+
 rsync -ah /cvmfs/dunedaq.opensciencegrid.org/pypi-repo $outdir_cvmfs
+rsync -ah /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh $outdir_cvmfs
+rsync -ah /cvmfs/dunedaq.opensciencegrid.org/tools $outdir_cvmfs
 
 rm -rf /scratch/daq-release
 rm -rf /scratch/daq-buildtools

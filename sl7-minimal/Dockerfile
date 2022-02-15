@@ -25,4 +25,4 @@ RUN yum clean all \
  && yum clean all
 
 
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/bin/bash", "-l", "-c" ]

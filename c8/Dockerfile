@@ -52,4 +52,4 @@ ENV UPS_OVERRIDE="-H Linux64bit+4.18-2.28"
 
 RUN dbus-uuidgen > /var/lib/dbus/machine-id
 
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/bin/bash", "-l", "-c" ]

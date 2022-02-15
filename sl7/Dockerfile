@@ -52,4 +52,4 @@ RUN yum clean all \
  && yum -y install xxhash cyrus-sasl-devel xxhash-libs \
  && yum clean all
 
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/bin/bash", "-l", "-c" ]
