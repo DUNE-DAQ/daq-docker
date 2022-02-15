@@ -31,13 +31,16 @@ jobs:
           repository: DUNE-DAQ/daq-docker
           path: daq-docker
       
-      - name: Test CernVM-FS
-        run: ls /cvmfs/dunedaq-development.opensciencegrid.org
-
-      - name: Test CernVM-FS in docker and set up dbt workarea
+      - name: set up dbt workarea
+        id: setup_dev
         run: |
             docker run --rm -v /home/dingpf/cvmfs_dunedaq-dev:/cvmfs/dunedaq-development.opensciencegrid.org -v /home/dingpf/cvmfs_dunedaq:/cvmfs/dunedaq.opensciencegrid.org -v $GITHUB_WORKSPACE/daq-docker/sl7-ci:/scratch dunedaq/sl7-minimal:latest /scratch/build-release.sh
-            ls $GITHUB_WORKSPACE/daq-docker/sl7-ci
+
+      - name: clean up dbt workarea
+        if: steps.setup_dev.outcome == 'failure'
+        run: |
+            docker run --rm -v /home/dingpf/cvmfs_dunedaq-dev:/cvmfs/dunedaq-development.opensciencegrid.org -v /home/dingpf/cvmfs_dunedaq:/cvmfs/dunedaq.opensciencegrid.org -v $GITHUB_WORKSPACE:/scratch dunedaq/sl7-minimal:latest rm -rf /scratch/daq-docker
+            exit 1
 
       - name: create cvmfs mirror
         run: |
