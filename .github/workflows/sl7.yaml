@@ -11,6 +11,7 @@ on:
       - 'c8-minimal/**'
       - 'sl7-minimal/**'
       - 'sl7-ci/**'
+      - 'c8-ci/**'
       - '.github/**'
 
   workflow_dispatch:
