@@ -37,16 +37,16 @@ jobs:
           cvmfs_repositories: 'dunedaq.opensciencegrid.org,dunedaq-development.opensciencegrid.org'
 
       - name: Test CernVM-FS
-        run: ls /Users/Shared/cvmfs/dunedaq-development.opensciencegrid.org
+        run: ls /cvmfs/dunedaq-development.opensciencegrid.org
 
       - name: Test CernVM-FS in docker and set up dbt workarea
         run: |
-             docker run --rm -v /Users/Shared/cvmfs/dunedaq-development.opensciencegrid.org:/cvmfs/dunedaq-development.opensciencegrid.org -v /Users/Shared/cvmfs/dunedaq.opensciencegrid.org:/cvmfs/dunedaq.opensciencegrid.org -v $GITHUB_WORKSPACE/daq-docker/sl7-ci:/scratch dunedaq/sl7-minimal:latest /scratch/build-release.sh
+             docker run --rm -v /cvmfs/dunedaq-development.opensciencegrid.org:/cvmfs/dunedaq-development.opensciencegrid.org -v /cvmfs/dunedaq.opensciencegrid.org:/cvmfs/dunedaq.opensciencegrid.org -v $GITHUB_WORKSPACE/daq-docker/sl7-ci:/scratch dunedaq/sl7-minimal:latest /scratch/build-release.sh
              ls $GITHUB_WORKSPACE/daq-docker/sl7-ci
 
       - name: create cvmfs mirror
         run: |
-             docker run --rm -v /Users/Shared/cvmfs/dunedaq-development.opensciencegrid.org:/cvmfs/dunedaq-development.opensciencegrid.org -v /Users/Shared/cvmfs/dunedaq.opensciencegrid.org:/cvmfs/dunedaq.opensciencegrid.org -v $GITHUB_WORKSPACE/daq-docker/sl7-ci:/scratch dunedaq/sl7-minimal:latest /scratch/create-image.sh 
+             docker run --rm -v /cvmfs/dunedaq-development.opensciencegrid.org:/cvmfs/dunedaq-development.opensciencegrid.org -v /cvmfs/dunedaq.opensciencegrid.org:/cvmfs/dunedaq.opensciencegrid.org -v $GITHUB_WORKSPACE/daq-docker/sl7-ci:/scratch dunedaq/sl7-minimal:latest /scratch/create-image.sh 
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
