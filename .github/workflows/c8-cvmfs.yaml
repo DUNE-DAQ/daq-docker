@@ -1,18 +1,8 @@
 name: Build c8-cvmfs docker image
 
 on:
-  push:
-    branches: [ develop ]
-    tags:
-      - 'v*'
-    paths-ignore:
-      - 'README.md'
-      - 'c8/**'
-      - 'c8-minimal/**'
-      - 'sl7/**'
-      - 'sl7-minimal/**'
-      - 'sl7-ci/**'
-      - '.github/**'
+  schedule:
+    - cron: "0 3 * * *"
 
   workflow_dispatch:
 
