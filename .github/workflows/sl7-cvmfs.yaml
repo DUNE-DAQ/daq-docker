@@ -74,4 +74,5 @@ jobs:
       - name: Clean up
         if: always()
         run: |
-            docker run --rm -v /home/dingpf/cvmfs_dunedaq-dev:/cvmfs/dunedaq-development.opensciencegrid.org -v /home/dingpf/cvmfs_dunedaq:/cvmfs/dunedaq.opensciencegrid.org -v $GITHUB_WORKSPACE:/scratch dunedaq/sl7-minimal:latest "rm -rf /scratch/daq-docker"
+            ls $GITHUB_WORKSPACE/daq-docker
+            #docker run --rm -v $GITHUB_WORKSPACE:/scratch dunedaq/sl7-minimal:latest "rm -rf /scratch/daq-docker"
