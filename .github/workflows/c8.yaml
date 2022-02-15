@@ -7,11 +7,11 @@ on:
       - 'v*'
     paths-ignore:
       - 'README.md'
-      - 'sl7/*'
-      - 'sl7-minimal/*'
-      - 'c8-minimal/*'
-      - 'sl7-ci/*'
-      - '.github/*'
+      - 'sl7/**'
+      - 'sl7-minimal/**'
+      - 'c8-minimal/**'
+      - 'sl7-ci/**'
+      - '.github/**'
 
   workflow_dispatch:
 
