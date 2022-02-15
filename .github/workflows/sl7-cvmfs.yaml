@@ -20,7 +20,7 @@ jobs:
 
   build_sl7_image_with_cvmfs_mirror:
     name: Build sl7 image with cvmfs mirror and push to multiple registries
-    runs-on: [self-hosted, cvmfs]
+    runs-on: [self-hosted, linux, x64, cvmfs]
     environment: dockerhub
     permissions:
       packages: write
