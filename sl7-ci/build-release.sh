@@ -14,9 +14,6 @@ cd $workdir
 git clone https://github.com/DUNE-DAQ/daq-release.git -b $daq_release_branch
 cd $workdir/daq-release
 git pull
-run_id=`gh run list|grep Nightly|grep schedule|grep success|head -n 1|egrep -o '[[:digit:]]{10}'`
-mkdir -p $workdir/artifacts
-gh run download $run_id -D $workdir/artifacts
 
 cd $workdir
 
