@@ -58,3 +58,4 @@ jobs:
         run: |
             ls $GITHUB_WORKSPACE/daq-docker
             docker run --rm -v $GITHUB_WORKSPACE:/scratch dunedaq/c8-minimal:latest "rm -rf /scratch/daq-docker"
+            docker image prune
