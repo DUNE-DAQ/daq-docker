@@ -3,12 +3,12 @@
 FROM dunedaq/c8-minimal:latest
 
 MAINTAINER Pengfei Ding "dingpf@fnal.gov"
-ENV REFRESHED_AT 2022-02-04
+ENV REFRESHED_AT 2022-03-02
 
-ADD image-cs8/cvmfs/dunedaq-development.opensciencegrid.org /cvmfs/dunedaq-development.opensciencegrid.org
-ADD image-cs8/cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh
-ADD image-cs8/cvmfs/dunedaq.opensciencegrid.org/tools /cvmfs/dunedaq.opensciencegrid.org/tools
-ADD image-cs8/cvmfs/dunedaq.opensciencegrid.org/products /cvmfs/dunedaq.opensciencegrid.org/products
-ADD image-cs8/cvmfs/dunedaq.opensciencegrid.org/pypi-repo /cvmfs/dunedaq.opensciencegrid.org/pypi-repo
+ADD image-sl7/cvmfs/dunedaq.opensciencegrid.org/products /cvmfs/dunedaq.opensciencegrid.org/products
+ADD image-sl7/cvmfs/dunedaq.opensciencegrid.org/tools /cvmfs/dunedaq.opensciencegrid.org/tools
+ADD image-sl7/cvmfs/dunedaq.opensciencegrid.org/pypi-repo /cvmfs/dunedaq.opensciencegrid.org/pypi-repo
+ADD image-sl7/cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh
+ADD image-sl7/cvmfs/dunedaq-development.opensciencegrid.org /cvmfs/dunedaq-development.opensciencegrid.org
 
 ENTRYPOINT ["/bin/bash", "-l", "-c"]
