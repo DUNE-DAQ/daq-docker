@@ -1,0 +1,54 @@
+name: Build c8-cvmfs docker image
+
+on:
+  schedule:
+    - cron: "0 2 * * *"
+
+  workflow_dispatch:
+
+jobs:
+
+  build_c8_spack_externals_image_with_cvmfs_mirror:
+    name: Build c8 image with cvmfs mirror containing spack externals instance and push to multiple registries
+    runs-on: [self-hosted, cvmfs]
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+        with:
+          repository: DUNE-DAQ/daq-docker
+          path: daq-docker
+      
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: |
+            dunedaq/c8-minimal
+          tags: |
+            type=raw,value=spack-externals
+      
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v2
+        with:
+          context: ${{ github.workspace }}/daq-docker/c8-spack-externals
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Clean up
+        if: always()
+        run: |
+            ls $GITHUB_WORKSPACE/daq-docker
+            docker image prune -f
+            docker container prune -f
+            docker network prune -f
+            docker volume prune -f
