@@ -39,7 +39,7 @@ jobs:
       - name: copy over Dockerfile and pypi-repo to local cvmfs mirror
         id: copy_dockerfile
         run: |
-            cp  ${{ github.workspace }}/daq-docker/c8-spack-externals/Dockerfile /home/dingpf/cvmfs_dunedaq-dev/sandbox
+            cp  ${{ github.workspace }}/daq-docker/c8-spack-externals/Dockerfile /home/dingpf/cvmfs_dunedaq-dev
             rsync -lprt /home/dingpf/cvmfs_dunedaq/pypi-repo /home/dingpf/cvmfs_dunedaq-dev
       
       - name: Build and push Docker images
@@ -54,7 +54,7 @@ jobs:
         if: always()
         run: |
 
-            rm -f /home/dingpf/cvmfs_dunedaq-dev/sandbox/Dockerfile
+            rm -f /home/dingpf/cvmfs_dunedaq-dev/Dockerfile
             rm -rf /home/dingpf/cvmfs_dunedaq-dev/pypi-repo
             docker image prune -f
             docker container prune -f
