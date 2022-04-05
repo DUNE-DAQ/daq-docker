@@ -9,8 +9,10 @@ on:
       - 'README.md'
       - 'c8/**'
       - 'c8-minimal/**'
+      - 'c8-spack/**'
       - 'sl7/**'
       - 'sl7-ci/**'
+      - 'sl7-spack/**'
       - 'c8-ci/**'
       - '.github/**'
 

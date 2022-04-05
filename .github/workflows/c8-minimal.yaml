@@ -9,9 +9,11 @@ on:
       - 'README.md'
       - 'sl7/**'
       - 'sl7-minimal/*'
+      - 'sl7-spack/*'
       - 'sl7-ci/**'
       - 'c8/**'
       - 'c8-ci/**'
+      - 'c8-spack/**'
       - '.github/**'
 
   workflow_dispatch:

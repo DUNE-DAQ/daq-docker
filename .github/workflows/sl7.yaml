@@ -9,6 +9,8 @@ on:
       - 'README.md'
       - 'c8/**'
       - 'c8-minimal/**'
+      - 'c8-spack/**'
+      - 'sl7-spack/**'
       - 'sl7-minimal/**'
       - 'sl7-ci/**'
       - 'c8-ci/**'
