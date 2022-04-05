@@ -1,4 +1,4 @@
-name: Build c8-cvmfs docker image
+name: Build c8-spack-externals docker image
 
 on:
   schedule:
