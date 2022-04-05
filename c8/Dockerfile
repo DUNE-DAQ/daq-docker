@@ -1,7 +1,7 @@
-FROM centos:centos8
+FROM quay.io/centos/centos:stream8
 
 MAINTAINER Pengfei Ding "dingpf@fnal.gov"
-ENV REFRESHED_AT 2020-12-23
+ENV REFRESHED_AT 2022-04-04
 
 RUN yum clean all \
  && yum -y install epel-release \
