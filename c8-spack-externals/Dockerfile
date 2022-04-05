@@ -5,8 +5,8 @@ FROM dunedaq/c8-minimal:spack
 MAINTAINER Pengfei Ding "dingpf@fnal.gov"
 ENV REFRESHED_AT 2022-04-04
 
-ADD /home/dingpf/cvmfs_dunedaq-dev/sandbox/spack-externals /cvmfs/dunedaq-development.opensciencegrid.org/sandbox/spack-externals
-ADD /home/dingpf/cvmfs_dunedaq/pypi-repo /cvmfs/dunedaq.opensciencegrid.org/pypi-repo
+ADD sandbox/spack-externals /cvmfs/dunedaq-development.opensciencegrid.org/sandbox/spack-externals
+ADD pypi-repo /cvmfs/dunedaq.opensciencegrid.org/pypi-repo
 
 
 ENTRYPOINT ["/bin/bash", "-l", "-c"]
