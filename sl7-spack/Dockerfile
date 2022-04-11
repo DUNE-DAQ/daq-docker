@@ -33,5 +33,26 @@ RUN yum clean all \
     python36-PyYAML \
  && yum clean all
 
+# Install libyaml and pyyaml
+
+RUN cd /tmp \
+ && wget http://pyyaml.org/download/libyaml/yaml-0.2.5.tar.gz \
+ && tar xvf yaml-0.2.5.tar.gz \
+ && cd yaml-0.2.5 \
+ && ./configure \
+ && make \
+ && make install \
+ && cd /tmp \
+ && rm -rf yaml-* 
+
+
+RUN cd /tmp \
+ && wget http://pyyaml.org/download/pyyaml/PyYAML-5.3.1.tar.gz \
+ && tar xvf PyYAML-5.3.1.tar.gz \
+ && cd PyYAML-5.3.1 \
+ && python3 setup.py --with-libyaml install \
+ && cd /tmp \
+ && rm -rf PyYAML-*
+
 
 ENTRYPOINT ["/bin/bash"]
