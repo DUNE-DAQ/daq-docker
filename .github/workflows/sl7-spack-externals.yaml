@@ -1,4 +1,4 @@
-name: Build c8-spack-externals docker image
+name: Build sl7-spack-externals docker image
 
 on:
   schedule:
