@@ -14,6 +14,7 @@ on:
       - 'sl7/**'
       - 'sl7-ci/**'
       - 'sl7-spack/**'
+      - 'sl7-spack-externals/**'
       - 'c8-ci/**'
       - '.github/**'
 

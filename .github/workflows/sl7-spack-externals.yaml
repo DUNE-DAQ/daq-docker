@@ -8,8 +8,8 @@ on:
 
 jobs:
 
-  build_c8_spack_externals_image_with_cvmfs_mirror:
-    name: Build c8 image with cvmfs mirror containing spack externals instance and push to multiple registries
+  build_sl7_spack_externals_image_with_cvmfs_mirror:
+    name: Build sl7 image with cvmfs mirror containing spack externals instance and push to multiple registries
     runs-on: [self-hosted, cvmfs]
     permissions:
       packages: write
@@ -32,14 +32,14 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: |
-            dunedaq/c8-minimal
+            dunedaq/sl7-minimal
           tags: |
             type=raw,value=spack-externals
 
       - name: copy over Dockerfile and pypi-repo to local cvmfs mirror
         id: copy_dockerfile
         run: |
-            cp  ${{ github.workspace }}/daq-docker/c8-spack-externals/Dockerfile /home/dingpf/cvmfs_dunedaq
+            cp  ${{ github.workspace }}/daq-docker/sl7-spack-externals/Dockerfile /home/dingpf/cvmfs_dunedaq
       
       - name: Build and push Docker images
         uses: docker/build-push-action@v2

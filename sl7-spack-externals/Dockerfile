@@ -1,6 +1,6 @@
 # This docker file is to add cvmfs mirror of external dependencies used by the DUNE DAQ development release
 
-FROM dunedaq/c8-minimal:spack
+FROM dunedaq/sl7-minimal:spack
 
 MAINTAINER Pengfei Ding "dingpf@fnal.gov"
 ENV REFRESHED_AT 2022-04-10

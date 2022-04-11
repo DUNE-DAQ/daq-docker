@@ -10,6 +10,7 @@ on:
       - 'sl7/**'
       - 'sl7-minimal/**'
       - 'sl7-spack/**'
+      - 'sl7-spack-externals/**'
       - 'c8-spack-externals/**'
       - 'c8-minimal/**'
       - 'c8-spack/**'
