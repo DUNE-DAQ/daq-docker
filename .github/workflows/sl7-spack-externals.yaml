@@ -40,6 +40,7 @@ jobs:
         id: copy_dockerfile
         run: |
             cp  ${{ github.workspace }}/daq-docker/sl7-spack-externals/Dockerfile /home/dingpf/cvmfs_dunedaq
+            cp  ${{ github.workspace }}/daq-docker/c8-spack-externals/.dockerignore /home/dingpf/cvmfs_dunedaq
       
       - name: Build and push Docker images
         uses: docker/build-push-action@v2
