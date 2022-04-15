@@ -10,7 +10,7 @@ jobs:
 
   build_c8_spack_externals_image_with_cvmfs_mirror:
     name: Build c8 image with cvmfs mirror containing spack externals instance and push to multiple registries
-    runs-on: [self-hosted, cvmfs]
+    runs-on: [self-hosted]
     permissions:
       packages: write
       contents: read
