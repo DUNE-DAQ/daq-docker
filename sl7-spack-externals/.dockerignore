@@ -1,4 +1,4 @@
 products/
 releases/
-spack-externals/spack-0.17.1/opt/spack/gcc-8.2.0/llvm-13.0.0-wzgrwhg4yki6etmzoay4jnztda2dx5ed/
-spack-externals/spack-0.17.1/opt/spack/gcc-8.2.0/gcc-9.4.0-2cp2ups6vynmweqtjclm5l54zmqs56hg/
+#spack-externals/spack-0.17.1/opt/spack/gcc-8.2.0/llvm-13.0.0-wzgrwhg4yki6etmzoay4jnztda2dx5ed/
+#spack-externals/spack-0.17.1/opt/spack/gcc-8.2.0/gcc-9.4.0-2cp2ups6vynmweqtjclm5l54zmqs56hg/
