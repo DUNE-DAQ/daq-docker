@@ -1,7 +1,7 @@
 #!/bin/bash
 
 daq_release_branch="develop"
-daq_buildtools_branch="develop"
+daq_buildtools_branch="v4.1.6"
 release="dunedaq-develop"
 package_checkout_branch="develop" # dunedaq-v2.4.0 or develop
 workdir=/scratch
