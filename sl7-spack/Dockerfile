@@ -54,5 +54,6 @@ RUN cd /tmp \
  && cd /tmp \
  && rm -rf PyYAML-*
 
+RUN mkdir -p /dunedaq/run && chmod go+rw /dunedaq/run
 
 ENTRYPOINT ["/bin/bash"]
