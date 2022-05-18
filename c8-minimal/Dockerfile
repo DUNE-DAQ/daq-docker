@@ -23,6 +23,8 @@ RUN yum clean all \
  && yum -y install \
     wget curl tar zip rsync openssh-server \
  && yum clean all
+ 
+RUN mkdir -p /dunedaq/run && chmod go+rw /dunedaq/run
 
 
 ENTRYPOINT ["/bin/bash", "-l", "-c" ]
