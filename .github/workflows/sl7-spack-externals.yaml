@@ -58,8 +58,8 @@ jobs:
             cd /home/dingpf/cvmfs_dunedaq
             echo "FROM dunedaq/sl7-minimal:spack-externals-slim"> Dockerfile
             echo 'MAINTAINER Pengfei Ding "dingpf@fnal.gov"' >> Dockerfile
-            echo "ADD /home/dingpf/cvmfs_dunedaq/spack-externals/spack-0.17.1/opt/spack/gcc-8.2.0/llvm-13.0.0-wzgrwhg4yki6etmzoay4jnztda2dx5ed /cvmfs/dunedaq.opensciencegrid.org/spack-externals/spack-0.17.1/opt/spack/gcc-8.2.0/llvm-13.0.0-wzgrwhg4yki6etmzoay4jnztda2dx5ed" >> Dockerfile
-            echo "ADD /home/dingpf/cvmfs_dunedaq/spack-externals/spack-0.17.1/opt/spack/gcc-8.2.0/gcc-9.4.0-2cp2ups6vynmweqtjclm5l54zmqs56hg /cvmfs/dunedaq.opensciencegrid.org/spack-externals/spack-0.17.1/opt/spack/gcc-8.2.0/gcc-9.4.0-2cp2ups6vynmweqtjclm5l54zmqs56hg" >> Dockerfile
+            echo "ADD spack-externals/spack-0.17.1/opt/spack/gcc-8.2.0/llvm-13.0.0-wzgrwhg4yki6etmzoay4jnztda2dx5ed /cvmfs/dunedaq.opensciencegrid.org/spack-externals/spack-0.17.1/opt/spack/gcc-8.2.0/llvm-13.0.0-wzgrwhg4yki6etmzoay4jnztda2dx5ed" >> Dockerfile
+            echo "ADD spack-externals/spack-0.17.1/opt/spack/gcc-8.2.0/gcc-9.4.0-2cp2ups6vynmweqtjclm5l54zmqs56hg /cvmfs/dunedaq.opensciencegrid.org/spack-externals/spack-0.17.1/opt/spack/gcc-8.2.0/gcc-9.4.0-2cp2ups6vynmweqtjclm5l54zmqs56hg" >> Dockerfile
             echo 'ENTRYPOINT ["/bin/bash"]' >> Dockerfile
 
       - name: Extract metadata (tags, labels) for Docker 2
