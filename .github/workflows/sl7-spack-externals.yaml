@@ -34,7 +34,7 @@ jobs:
           images: |
             dunedaq/sl7-minimal
           tags: |
-            type=raw,value=spack-externals
+            type=raw,value=spack-externals-slim
 
       - name: copy over Dockerfile and pypi-repo to local cvmfs mirror
         id: copy_dockerfile
@@ -49,6 +49,35 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: add llvm and gcc 9 to the image
+        id: gen_dockerfile
+        run: |
+            rm -f /home/dingpf/cvmfs_dunedaq/Dockerfile
+            rm -f /home/dingpf/cvmfs_dunedaq/.dockerignore
+            cd /home/dingpf/cvmfs_dunedaq
+            echo "FROM dunedaq/sl7-minimal:spack-externals-slim"> Dockerfile
+            echo 'MAINTAINER Pengfei Ding "dingpf@fnal.gov"' >> Dockerfile
+            echo "ADD /home/dingpf/cvmfs_dunedaq/spack-externals/spack-0.17.1/opt/spack/gcc-8.2.0/llvm-13.0.0-wzgrwhg4yki6etmzoay4jnztda2dx5ed /cvmfs/dunedaq.opensciencegrid.org/spack-externals/spack-0.17.1/opt/spack/gcc-8.2.0/llvm-13.0.0-wzgrwhg4yki6etmzoay4jnztda2dx5ed" >> Dockerfile
+            echo "ADD /home/dingpf/cvmfs_dunedaq/spack-externals/spack-0.17.1/opt/spack/gcc-8.2.0/gcc-9.4.0-2cp2ups6vynmweqtjclm5l54zmqs56hg /cvmfs/dunedaq.opensciencegrid.org/spack-externals/spack-0.17.1/opt/spack/gcc-8.2.0/gcc-9.4.0-2cp2ups6vynmweqtjclm5l54zmqs56hg" >> Dockerfile
+            echo 'ENTRYPOINT ["/bin/bash"]' >> Dockerfile
+
+      - name: Extract metadata (tags, labels) for Docker 2
+        id: meta2
+        uses: docker/metadata-action@v3
+        with:
+          images: |
+            dunedaq/sl7-minimal
+          tags: |
+            type=raw,value=spack-externals
+      
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v2
+        with:
+          context: /home/dingpf/cvmfs_dunedaq
+          push: true
+          tags: ${{ steps.meta2.outputs.tags }}
+          labels: ${{ steps.meta2.outputs.labels }}
 
       - name: Clean up
         if: always()
