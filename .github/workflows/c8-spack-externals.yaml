@@ -33,7 +33,7 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: |
-            ghcr.io/dune-daq/sl7-minimal
+            ghcr.io/dune-daq/c8-minimal
           tags: |
             type=raw,value=spack-externals-slim
 
@@ -68,7 +68,7 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: |
-            ghcr.io/dune-daq/sl7-minimal
+            ghcr.io/dune-daq/c8-minimal
           tags: |
             type=raw,value=spack-externals
       
