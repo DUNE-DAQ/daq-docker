@@ -85,7 +85,7 @@ jobs:
 
   build_c8_externals:
     name: build_c8
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted]
     needs: build_sl7_externals
     permissions:
       packages: write
