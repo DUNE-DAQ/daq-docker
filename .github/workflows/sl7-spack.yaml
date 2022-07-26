@@ -1,4 +1,4 @@
-name: Build sl7-minimal docker image
+name: Build sl7-spack docker image
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
     tags:
       - 'v*'
     paths:
-      - dockerfiles/sl7-minimal.dockerfile
+      - dockerfiles/sl7-spack.dockerfile
 
   workflow_dispatch:
 
@@ -43,8 +43,8 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-            dunedaq/sl7-minimal
-            ghcr.io/DUNE-DAQ/sl7-minimal
+            dunedaq/sl7-spack
+            ghcr.io/DUNE-DAQ/sl7-spack
           tags: |
             type=raw,value=latest
             type=ref,event=branch
@@ -55,7 +55,7 @@ jobs:
           build_dir="${{ github.workspace }}/docker-build"
           mkdir -p $build_dir
           cd $build_dir
-          cp ${{ github.workspace }}/daq-docker/dockerfiles/sl7-minimal.dockerfile $build_dir/Dockerfile
+          cp ${{ github.workspace }}/daq-docker/dockerfiles/sl7-spack.dockerfile $build_dir/Dockerfile
       
       - name: Build and push Docker images
         uses: docker/build-push-action@v3
