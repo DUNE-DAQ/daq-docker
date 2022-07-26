@@ -66,7 +66,6 @@ jobs:
         run: |
 
             rm -f /home/dingpf/cvmfs_dunedaq/Dockerfile
-            rm -f /home/dingpf/cvmfs_dunedaq/.dockerignore
             docker image prune -f
             docker container prune -f
             docker network prune -f
