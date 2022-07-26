@@ -114,7 +114,7 @@ jobs:
           echo "COPY --from=ghcr.io/dune-daq/sl7-externals:latest /cvmfs/dunedaq.opensciencegrid.org/pypi-repo /cvmfs/dunedaq.opensciencegrid.org/pypi-repo" >> Dockerfile
           echo "COPY --from=ghcr.io/dune-daq/sl7-externals:latest /cvmfs/dunedaq.opensciencegrid.org/tools /cvmfs/dunedaq.opensciencegrid.org/tools" >> Dockerfile
           echo "COPY --from=ghcr.io/dune-daq/sl7-externals:latest /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh" >> Dockerfile
-	  echo 'ENTRYPOINT ["/bin/bash"]' >> Dockerfile
+          echo 'ENTRYPOINT ["/bin/bash"]' >> Dockerfile
 
       - name: Build and push Docker images
         uses: docker/build-push-action@v3
