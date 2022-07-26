@@ -37,7 +37,7 @@ jobs:
           build_dir="/home/dingpf/cvmfs_dunedaq"
           cd $build_dir
           refresh_date=$(date +%y-%m-%d)
-          echo "FROM ghcr.io/dune-daq/sl7-minimal:latest" > Dockerfile
+          echo "FROM ghcr.io/dune-daq/sl7-spack:latest" > Dockerfile
           echo 'MAINTAINER Pengfei Ding "dingpf@fnal.gov"' >> Dockerfile
           echo "ENV REFRESHED_AT $refresh_date" >> Dockerfile
           echo "ADD spack-externals /cvmfs/dunedaq.opensciencegrid.org/spack-externals" >> Dockerfile
@@ -113,7 +113,7 @@ jobs:
           mkdir -p $build_dir
           cd $build_dir
           refresh_date=$(date +%y-%m-%d)
-          echo "FROM ghcr.io/dune-daq/c8-minimal:latest" > Dockerfile
+          echo "FROM ghcr.io/dune-daq/c8-spack:latest" > Dockerfile
           echo 'MAINTAINER Pengfei Ding "dingpf@fnal.gov"' >> Dockerfile
           echo "ENV REFRESHED_AT $refresh_date" >> Dockerfile
           echo "COPY --from=ghcr.io/dune-daq/sl7-externals:latest /cvmfs/dunedaq.opensciencegrid.org/spack-externals /cvmfs/dunedaq.opensciencegrid.org/spack-externals" >> Dockerfile
