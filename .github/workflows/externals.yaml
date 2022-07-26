@@ -52,10 +52,6 @@ jobs:
           echo "ADD tools /cvmfs/dunedaq.opensciencegrid.org/tools" >> Dockerfile
           echo "ADD setup_dunedaq.sh /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh" >> Dockerfile
 	  echo 'ENTRYPOINT ["/bin/bash"]' >> Dockerfile
-          echo "products/" > .dockerignore
-          echo "releases/" >> .dockerignore
-          #echo "spack-externals/spack-0.17.1/opt/spack/gcc-8.2.0/llvm-13.0.0-wzgrwhg4yki6etmzoay4jnztda2dx5ed/" >> .dockerignore
-          #echo "spack-externals/spack-0.17.1/opt/spack/gcc-8.2.0/gcc-9.4.0-2cp2ups6vynmweqtjclm5l54zmqs56hg/" >> .dockerignore
 
       - name: Build and push Docker images
         uses: docker/build-push-action@v3
