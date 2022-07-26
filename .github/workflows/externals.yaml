@@ -51,7 +51,7 @@ jobs:
           echo "ADD pypi-repo /cvmfs/dunedaq.opensciencegrid.org/pypi-repo" >> Dockerfile
           echo "ADD tools /cvmfs/dunedaq.opensciencegrid.org/tools" >> Dockerfile
           echo "ADD setup_dunedaq.sh /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh" >> Dockerfile
-	  echo 'ENTRYPOINT ["/bin/bash"]' >> Dockerfile
+          echo 'ENTRYPOINT ["/bin/bash"]' >> Dockerfile
 
       - name: Build and push Docker images
         uses: docker/build-push-action@v3
