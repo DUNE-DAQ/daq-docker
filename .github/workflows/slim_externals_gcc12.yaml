@@ -2,7 +2,7 @@ name: GCC12 Build docker image with slim externals
 
 on:
   schedule:
-    - cron: "0 2 * * *"
+    - cron: "30 1 * * *"
 
   workflow_dispatch:
 
