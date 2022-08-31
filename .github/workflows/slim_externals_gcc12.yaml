@@ -117,10 +117,10 @@ jobs:
           echo "FROM ghcr.io/dune-daq/c8-spack:latest" > Dockerfile
           echo 'MAINTAINER Pengfei Ding "dingpf@fnal.gov"' >> Dockerfile
           echo "ENV REFRESHED_AT $refresh_date" >> Dockerfile
-          echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:latest /cvmfs/dunedaq.opensciencegrid.org/spack /cvmfs/dunedaq.opensciencegrid.org/spack" >> Dockerfile
-          echo "COPY --from=ghcr.io/dune-daq/sl7-externals:latest /cvmfs/dunedaq.opensciencegrid.org/pypi-repo /cvmfs/dunedaq.opensciencegrid.org/pypi-repo" >> Dockerfile
-          echo "COPY --from=ghcr.io/dune-daq/sl7-externals:latest /cvmfs/dunedaq.opensciencegrid.org/tools /cvmfs/dunedaq.opensciencegrid.org/tools" >> Dockerfile
-          echo "COPY --from=ghcr.io/dune-daq/sl7-externals:latest /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh" >> Dockerfile
+          echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:gcc12 /cvmfs/dunedaq.opensciencegrid.org/spack /cvmfs/dunedaq.opensciencegrid.org/spack" >> Dockerfile
+          echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:gcc12 /cvmfs/dunedaq.opensciencegrid.org/pypi-repo /cvmfs/dunedaq.opensciencegrid.org/pypi-repo" >> Dockerfile
+          echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:gcc12 /cvmfs/dunedaq.opensciencegrid.org/tools /cvmfs/dunedaq.opensciencegrid.org/tools" >> Dockerfile
+          echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:gcc12 /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh" >> Dockerfile
           echo 'ENTRYPOINT ["/bin/bash"]' >> Dockerfile
 
       - name: Build and push Docker images
