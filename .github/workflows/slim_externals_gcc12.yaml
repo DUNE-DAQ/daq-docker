@@ -106,7 +106,7 @@ jobs:
           images: |
             ghcr.io/dune-daq/c8-slim-externals
           tags: |
-            type=raw,value=latest
+            type=raw,value=gcc12
 
       - name: prepare build dir
         run: |
