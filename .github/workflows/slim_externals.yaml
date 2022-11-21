@@ -1,8 +1,8 @@
-name: Build docker image with slim externals
+name: GCC12 Build docker image with slim externals
 
 on:
   schedule:
-    - cron: "0 2 * * *"
+    - cron: "30 1 * * *"
 
   workflow_dispatch:
 
@@ -40,13 +40,11 @@ jobs:
           echo "FROM ghcr.io/dune-daq/sl7-spack:latest" > Dockerfile
           echo 'MAINTAINER Pengfei Ding "dingpf@fnal.gov"' >> Dockerfile
           echo "ENV REFRESHED_AT $refresh_date" >> Dockerfile
-          echo "ADD spack-externals /cvmfs/dunedaq.opensciencegrid.org/spack-externals" >> Dockerfile
+          echo "ADD spack/externals /cvmfs/dunedaq.opensciencegrid.org/spack/externals" >> Dockerfile
           echo "ADD pypi-repo /cvmfs/dunedaq.opensciencegrid.org/pypi-repo" >> Dockerfile
           echo "ADD tools /cvmfs/dunedaq.opensciencegrid.org/tools" >> Dockerfile
           echo "ADD setup_dunedaq.sh /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh" >> Dockerfile
           echo 'ENTRYPOINT ["/bin/bash"]' >> Dockerfile
-          echo 'spack-externals/spack-0.17.1/opt/spack/gcc-8.2.0/llvm-13.0.0-wzgrwhg4yki6etmzoay4jnztda2dx5ed/' > .dockerignore
-          echo 'spack-externals/spack-0.17.1/opt/spack/gcc-8.2.0/gcc-9.4.0-2cp2ups6vynmweqtjclm5l54zmqs56hg/' >> .dockerignore
 
       - name: Build and push Docker images
         uses: docker/build-push-action@v3
@@ -119,7 +117,7 @@ jobs:
           echo "FROM ghcr.io/dune-daq/c8-spack:latest" > Dockerfile
           echo 'MAINTAINER Pengfei Ding "dingpf@fnal.gov"' >> Dockerfile
           echo "ENV REFRESHED_AT $refresh_date" >> Dockerfile
-          echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:latest /cvmfs/dunedaq.opensciencegrid.org/spack-externals /cvmfs/dunedaq.opensciencegrid.org/spack-externals" >> Dockerfile
+          echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:latest /cvmfs/dunedaq.opensciencegrid.org/spack /cvmfs/dunedaq.opensciencegrid.org/spack" >> Dockerfile
           echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:latest /cvmfs/dunedaq.opensciencegrid.org/pypi-repo /cvmfs/dunedaq.opensciencegrid.org/pypi-repo" >> Dockerfile
           echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:latest /cvmfs/dunedaq.opensciencegrid.org/tools /cvmfs/dunedaq.opensciencegrid.org/tools" >> Dockerfile
           echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:latest /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh" >> Dockerfile
