@@ -1,4 +1,4 @@
-name: GCC12 Build docker image with slim externals
+name: Build docker image with slim externals
 
 on:
   schedule:
