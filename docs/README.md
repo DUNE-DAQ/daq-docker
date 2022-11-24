@@ -1,5 +1,5 @@
 # daq-docker
-[![Build docker image with externals](https://github.com/DUNE-DAQ/daq-docker/actions/workflows/externals.yaml/badge.svg)](https://github.com/DUNE-DAQ/daq-docker/actions/workflows/externals.yaml)
+[![Build docker image with externals](https://github.com/DUNE-DAQ/daq-docker/actions/workflows/slim_externals.yaml/badge.svg)](https://github.com/DUNE-DAQ/daq-docker/actions/workflows/slim_externals.yaml)
 
 This repo at the moment is linked to the following docker hub images:
 
