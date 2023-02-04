@@ -25,7 +25,7 @@ RUN yum clean all \
  nss_wrapper openldap-devel openssl-devel perl perl-DBD-SQLite \
  perl-ExtUtils-MakeMaker readline-devel swig tcl-devel tk-devel \
  libunwind-devel \
- xmlto xterm xxhash xz-devel zlib-devel  compat-openssl10 openssl \
+ xmlto xterm xxhash-devel xz-devel zlib-devel  compat-openssl10 openssl \
  && yum clean all
 
 RUN yum clean all \
@@ -45,7 +45,7 @@ RUN yum clean all \
 
 RUN yum clean all \
  && yum -y install \
- glibc-devel.i686 libstdc++.i686 libgcc.i686 compat-openssl10 
+ glibc-devel.i686 libstdc++.i686 libgcc.i686 compat-openssl10 \
  numactl-devel \
  && yum clean all
 

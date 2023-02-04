@@ -15,7 +15,7 @@ RUN yum clean all \
  && yum --enablerepo=powertools -y install git \
     make redhat-lsb-core glibc-devel \
     openssl-devel xz-devel bzip2-devel libcurl-devel libunwind-devel \
-    openssl  compat-openssl10 cyrus-sasl-devel xxhash xxhash-libs bzip2 \
+    openssl  compat-openssl10 cyrus-sasl-devel xxhash-devel bzip2 \
  && yum clean all
 
 # Common system tools requried to run various bash scripts
