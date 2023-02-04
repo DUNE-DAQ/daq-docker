@@ -12,7 +12,7 @@ ENV UPS_OVERRIDE="-H Linux64bit+4.18-2.28"
 RUN yum clean all \
  && yum -y install epel-release \
  && yum -y update \
- && yum -y install git \
+ && yum --enablerepo=powertools -y install git \
     make redhat-lsb-core glibc-devel \
     openssl-devel xz-devel bzip2-devel libcurl-devel libunwind-devel \
     openssl  compat-openssl10 cyrus-sasl-devel xxhash xxhash-libs bzip2 \

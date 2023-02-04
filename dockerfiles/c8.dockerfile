@@ -14,7 +14,7 @@ RUN yum clean all \
  && yum clean all
 
 RUN yum clean all \
- && yum -y install \
+ && yum --enablerepo=powertools -y install \
  asciidoc autoconf automake bzip2-devel expect freetype-devel \
  gcc gcc-c++ gdbm-devel gettext glibc-devel gstreamer1 \
  gstreamer1-plugins-base-devel gtk2-devel libX11-devel libXext-devel \
