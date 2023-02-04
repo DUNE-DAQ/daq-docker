@@ -35,7 +35,7 @@ RUN yum clean all \
     java-1.8.0-openjdk-devel java-1.8.0-openjdk-headless gcc gcc-c++ \
     gcc-gfortran libgcc bzip2 bzip2-devel bzip2-libs unzip librdmacm \
     libuuid-devel python38-setuptools python3-setuptools_scm python38-pip \
-    python3-apipkg python38-pyyaml \
+    python3-apipkg python38-pyyaml numactl-devel \
  && yum clean all
 
 RUN mkdir -p /dunedaq/run && chmod go+rw /dunedaq/run

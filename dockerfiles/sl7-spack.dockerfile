@@ -30,7 +30,7 @@ RUN yum clean all \
     gcc gcc-c++ gcc-gfortran libgcc bzip2 bzip2-devel \
     bzip2-libs unzip librdmacm libuuid-devel \
     python36-setuptools_scm python36-pip python3-apipkg \
-    python36-PyYAML \
+    python36-PyYAML numactl-devel \
  && yum clean all
 
 # Install libyaml and pyyaml

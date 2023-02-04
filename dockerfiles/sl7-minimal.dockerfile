@@ -14,7 +14,7 @@ RUN yum clean all \
  && yum -y update \
  && yum -y install libzstd git236 \
     make redhat-lsb-core glibc-devel \
-    openssl-devel xz-devel bzip2-devel libcurl-devel \
+    openssl-devel xz-devel bzip2-devel libcurl-devel numactl-devel \
     openssl libzstd-devel cyrus-sasl-devel xxhash xxhash-libs \
  && yum clean all
 

@@ -49,7 +49,7 @@ RUN yum clean all \
  && yum clean all
 
 RUN yum clean all \
- && yum -y install xxhash cyrus-sasl-devel xxhash-libs \
+ && yum -y install xxhash cyrus-sasl-devel xxhash-libs numactl-devel \
  && yum clean all
 
 ENTRYPOINT ["/bin/bash", "-l", "-c" ]
