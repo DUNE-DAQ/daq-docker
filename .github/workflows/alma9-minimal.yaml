@@ -1,4 +1,4 @@
-name: Build alma9-minimal docker image::
+name: Build alma9-minimal docker image
 
 on:
   push:
