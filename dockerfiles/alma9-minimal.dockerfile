@@ -2,28 +2,26 @@
 
 FROM almalinux:9
 
-ENV REFRESHED_AT 2021-11-18
-
-ENV UPS_OVERRIDE="-H Linux64bit+4.18-2.28"
-
-# Tools for building the DAQ release
+ENV REFRESHED_AT 2023-02-27
 
 RUN yum clean all \
- && yum -y install epel-release \
- && yum -y update \
- && yum --enablerepo=powertools -y install git \
-    make redhat-lsb-core glibc-devel \
+ && yum -y install epel-release dnf-plugins-core \
+ && yum -y upgrade \
+ && dnf config-manager --set-enabled crb \
+ && yum clean all
+
+# Tools for building the DAQ release
+RUN yum -y install git make glibc-devel \
     openssl-devel xz-devel bzip2-devel libcurl-devel libunwind-devel \
-    openssl  compat-openssl10 cyrus-sasl-devel xxhash-devel bzip2 \
+    openssl  compat-openssl11 cyrus-sasl-devel xxhash-libs xxhash bzip2 \
  && yum clean all
 
 # Common system tools requried to run various bash scripts
 RUN yum clean all \
  && yum -y install \
-    wget curl tar zip rsync openssh-server numactl-devel \
+    wget tar zip rsync openssh-server numactl-devel \
  && yum clean all
  
 RUN mkdir -p /dunedaq/run && chmod go+rw /dunedaq/run
-
 
 ENTRYPOINT ["/bin/bash", "-l", "-c" ]
