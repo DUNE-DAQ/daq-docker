@@ -82,6 +82,11 @@ RUN yum clean all \
  numactl-devel \
  && yum clean all
 
+RUN yum clean all \
+ && yum -y install \
+    texinfo patch \
+ && yum clean all
+
 RUN dbus-uuidgen > /var/lib/dbus/machine-id
 
 ENTRYPOINT ["/bin/bash", "-l", "-c" ]

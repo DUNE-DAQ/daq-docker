@@ -21,6 +21,11 @@ RUN yum clean all \
  && yum -y install \
     wget tar zip rsync openssh-server numactl-devel \
  && yum clean all
+
+RUN yum clean all \
+ && yum -y install \
+    texinfo patch \
+ && yum clean all
  
 RUN mkdir -p /dunedaq/run && chmod go+rw /dunedaq/run
 

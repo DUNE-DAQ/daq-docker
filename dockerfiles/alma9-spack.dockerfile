@@ -32,6 +32,11 @@ RUN yum clean all \
     python3-apipkg python3-pyyaml \
  && yum clean all
 
+RUN yum clean all \
+ && yum -y install \
+    texinfo patch \
+ && yum clean all
+
 RUN mkdir -p /dunedaq/run && chmod go+rw /dunedaq/run
 
 ENTRYPOINT ["/bin/bash"]
