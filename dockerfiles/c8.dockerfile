@@ -46,7 +46,7 @@ RUN yum clean all \
 RUN yum clean all \
  && yum -y install \
  glibc-devel.i686 libstdc++.i686 libgcc.i686 compat-openssl10 \
- numactl-devel \
+ numactl-devel libbsd-devel \
  && yum clean all
 
 ENV UPS_OVERRIDE="-H Linux64bit+4.18-2.28"

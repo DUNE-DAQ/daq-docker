@@ -36,7 +36,7 @@ RUN yum clean all \
  && yum clean all
 
 RUN yum clean all \
- && yum -y install java-11-openjdk \
+ && yum -y install java-11-openjdk libbsd-devel \
  && yum clean all
 
 

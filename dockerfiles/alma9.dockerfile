@@ -79,7 +79,7 @@ RUN yum clean all \
 RUN yum clean all \
  && yum -y install \
  glibc-devel.i686 libstdc++.i686 libgcc.i686 \
- numactl-devel \
+ numactl-devel libbsd-devel \
  && yum clean all
 
 RUN yum clean all \

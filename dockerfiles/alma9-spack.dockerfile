@@ -34,7 +34,7 @@ RUN yum clean all \
 
 RUN yum clean all \
  && yum -y install \
-    texinfo patch \
+    texinfo patch libbsd-devel \
  && yum clean all
 
 RUN mkdir -p /dunedaq/run && chmod go+rw /dunedaq/run
