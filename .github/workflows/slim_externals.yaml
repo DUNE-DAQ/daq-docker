@@ -36,7 +36,7 @@ jobs:
         run: |
           build_dir="/home/dingpf/cvmfs_dunedaq"
           cd $build_dir
-          echo "**/llvm*" > .dockerignore
+          echo "**/llvm-14.0.2*" > .dockerignore
           refresh_date=$(date +%y-%m-%d)
           echo "FROM ghcr.io/dune-daq/sl7-spack:latest" > Dockerfile
           echo 'MAINTAINER Pengfei Ding "dingpf@fnal.gov"' >> Dockerfile
