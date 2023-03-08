@@ -36,11 +36,13 @@ jobs:
         run: |
           build_dir="/home/dingpf/cvmfs_dunedaq"
           cd $build_dir
+          echo "**/llvm*" > .dockerignore
           refresh_date=$(date +%y-%m-%d)
           echo "FROM ghcr.io/dune-daq/sl7-spack:latest" > Dockerfile
           echo 'MAINTAINER Pengfei Ding "dingpf@fnal.gov"' >> Dockerfile
           echo "ENV REFRESHED_AT $refresh_date" >> Dockerfile
           echo "ADD spack/externals /cvmfs/dunedaq.opensciencegrid.org/spack/externals" >> Dockerfile
+          echo "RUN source /cvmfs/dunedaq.opensciencegrid.org/spack/externals/ext-v1.0/spack-0.18.1-gcc-12.1.0/spack-0.18.1/share/spack/setup-env.sh && spack reindex" >> Dockerfile
           echo "ADD pypi-repo /cvmfs/dunedaq.opensciencegrid.org/pypi-repo" >> Dockerfile
           echo "ADD tools /cvmfs/dunedaq.opensciencegrid.org/tools" >> Dockerfile
           echo "ADD setup_dunedaq.sh /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh" >> Dockerfile
