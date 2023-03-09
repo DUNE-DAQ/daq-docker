@@ -26,5 +26,4 @@ RUN yum clean all \
  
 RUN mkdir -p /dunedaq/run && chmod go+rw /dunedaq/run
 
-
-ENTRYPOINT ["/bin/bash", "-l", "-c" ]
+ENTRYPOINT ["/bin/bash"]
