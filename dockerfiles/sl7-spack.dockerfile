@@ -7,8 +7,9 @@ ENV REFRESHED_AT 2022-04-04
 # Tools for building the DAQ release
 
 RUN yum clean all \
- && yum -y install epel-release \
- && yum -y install https://repo.ius.io/ius-release-el7.rpm \
+ && yum -y install \
+ && https://repo.ius.io/ius-release-el7.rpm \
+ && https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
  && yum -y update \
  && yum -y install libzstd git236 \
     make redhat-lsb-core glibc-devel \
