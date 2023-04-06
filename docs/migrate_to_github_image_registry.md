@@ -19,7 +19,7 @@ The migration of images from Dockerhub to GitHub can be done by following the st
   - Details can be found [here](https://hackmd.io/hLvDnTFEQBmQdjCBFwESTg). 
   - In short, the images can be pulled down like `docker pull np04docker.cern.ch/ghcr/dune-daq/<image-name>:<label>` (replace `docker` with `ctr` on nodes without docker installed).
 
-## Push updated versions of the image to GitHub
+## Push updated versions or new labels of the image to GitHub
 
 Each image is treated as a GitHub package. You can see a list of images or packages [here](https://github.com/orgs/DUNE-DAQ/packages) or by going to the home page of `DUNE-DAQ` org in GitHub, and clicking the `packages` tab. If the image is listed, and you have "write" access to it (typically you are a member of a team which has "write" access), you can authenticate to the registry using your GitHub token, and then push the image. More details about the authentication can be found [here](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-in-a-github-actions-workflow). You may need to use the np04 web proxy if you are on a node within the NP04 cluster.
 
