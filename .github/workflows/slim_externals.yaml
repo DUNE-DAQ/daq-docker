@@ -70,7 +70,7 @@ jobs:
 
   build_c7_slim_externals:
     name: build_c7
-    runs-on: ubuntu-latest 
+    runs-on: [self-hosted]
     needs: build_sl7_slim_externals
     permissions:
       packages: write
@@ -117,7 +117,7 @@ jobs:
 
   build_c8_slim_externals:
     name: build_c8
-    runs-on: ubuntu-latest 
+    runs-on: [self-hosted]
     needs: build_sl7_slim_externals
     permissions:
       packages: write
@@ -164,7 +164,7 @@ jobs:
 
   build_alma9_slim_externals:
     name: build_alma9
-    runs-on: ubuntu-latest 
+    runs-on: [self-hosted]
     needs: build_sl7_slim_externals
     permissions:
       packages: write
