@@ -43,6 +43,7 @@ jobs:
           echo "ENV REFRESHED_AT $refresh_date" >> Dockerfile
           echo "ADD spack/externals /cvmfs/dunedaq.opensciencegrid.org/spack/externals" >> Dockerfile
           echo "RUN source /cvmfs/dunedaq.opensciencegrid.org/spack/externals/ext-v1.0/spack-0.18.1-gcc-12.1.0/spack-0.18.1/share/spack/setup-env.sh && spack uninstall -y llvm" >> Dockerfile
+          echo "RUN source /cvmfs/dunedaq.opensciencegrid.org/spack/externals/ext-v1.0/spack-0.18.1-gcc-12.1.0/spack-0.18.1/share/spack/setup-env.sh && spack uninstall -y qt" >> Dockerfile
           echo "ADD tools /cvmfs/dunedaq.opensciencegrid.org/tools" >> Dockerfile
           echo "ADD setup_dunedaq.sh /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh" >> Dockerfile
           echo "ADD pypi-repo /cvmfs/dunedaq.opensciencegrid.org/pypi-repo" >> Dockerfile
