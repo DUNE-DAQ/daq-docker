@@ -1,4 +1,4 @@
-name: Build c8-spack docker image
+name: Build tinyproxy docker image
 
 on:
   schedule:
