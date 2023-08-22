@@ -50,7 +50,7 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v3
         with:
-          context: /home/dingpf/cvmfs_dunedaq
+          context: /home/dingpf/docker-scratch/cvmfs_dunedaq
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -201,7 +201,7 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v3
         with:
-          context: /home/dingpf/cvmfs_dunedaq
+          context: /home/dingpf/docker-scratch/cvmfs_dunedaq
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
