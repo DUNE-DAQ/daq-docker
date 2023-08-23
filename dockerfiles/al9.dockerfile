@@ -11,6 +11,7 @@ RUN yum clean all \
 RUN yum -y install git python3-yaml glibc-devel \
  gcc gcc-c++ gcc-fortran libgcc \
  wget tar zip rsync patch lbzip2 texinfo file \
+ libunwind-devel which \
  && yum clean all
 
 ENTRYPOINT ["/bin/bash"]
