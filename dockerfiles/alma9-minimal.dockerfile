@@ -25,7 +25,7 @@ RUN yum clean all \
 RUN yum clean all \
  && yum -y install \
     texinfo patch libbsd-devel \
-    libnsl2 \
+    libnsl2 keyutils \
  && yum clean all
  
 RUN mkdir -p /dunedaq/run && chmod go+rw /dunedaq/run
