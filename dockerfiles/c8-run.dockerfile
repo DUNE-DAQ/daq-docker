@@ -16,7 +16,7 @@ ENV UPS_OVERRIDE="-H Linux64bit+4.18-2.28"
 # Common system tools requried to run various bash scripts
 RUN yum clean all \
  && yum -y install \
-    sudo pciutils iputils iproute linux-firmware telnet nc \
+    sudo pciutils iputils iproute telnet nc \
  && yum clean all
  
 ENTRYPOINT ["/bin/bash"]
