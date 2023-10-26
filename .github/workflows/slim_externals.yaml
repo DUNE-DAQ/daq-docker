@@ -5,6 +5,13 @@ on:
     - cron: "30 1 * * *"
 
   workflow_dispatch:
+    inputs:
+      tag-suffix:
+        description: 'optional suffix for test-only externals image (e.g., T would mean alma9-slim-externals:v2.0T)'
+        default: ''
+      account-to-copy:
+        description: 'the user account whose docker-scratch/cvmfs_dunedaq area you want to copy (default jcfree)'
+        default: 'jcfree'
 
 jobs:
 
@@ -15,6 +22,11 @@ jobs:
       packages: write
       contents: read
     steps:
+      - name: Intro
+        run: |
+        echo "Will create a ghcr.io/dune-daq/sl7-slim-externals:v1.1${{ github.event.inputs.tag-suffix }} image"
+        echo "Image contents will include $HOSTNAME:/home/${{ github.events.inputs.account-to-copy }}/docker-scratch/cvmfs_dunedaq/spack/externals/ext-v1.1"
+
       - name: Log in to the Container registry
         uses: docker/login-action@v2
         with:
@@ -29,16 +41,16 @@ jobs:
           images: |
             ghcr.io/dune-daq/sl7-slim-externals
           tags: |
-            type=raw,value=v1.1-initial
+            type=raw,value=v1.1${{ github.event.inputs.tag-suffix }}-initial
 
       - name: prepare build dir
         id: prep_build_dir
         run: |
-          build_dir="/home/dingpf/docker-scratch/cvmfs_dunedaq"
+          build_dir="/home/${{ github.events.inputs.account-to-copy }}/docker-scratch/cvmfs_dunedaq"
           cd $build_dir
           refresh_date=$(date +%y-%m-%d)
           echo "FROM ghcr.io/dune-daq/sl7-spack:latest" > Dockerfile
-          echo 'MAINTAINER Pengfei Ding "dingpf@fnal.gov"' >> Dockerfile
+          echo 'MAINTAINER John Freeman "jcfree@fnal.gov"' >> Dockerfile
           echo "ENV REFRESHED_AT $refresh_date" >> Dockerfile
           echo "ADD spack/externals/ext-v1.1 /cvmfs/dunedaq.opensciencegrid.org/spack/externals/ext-v1.1" >> Dockerfile
           echo "RUN source /cvmfs/dunedaq.opensciencegrid.org/spack/externals/ext-v1.1/spack-0.20.0-gcc-12.1.0/spack-0.20.0/share/spack/setup-env.sh && spack uninstall -y llvm" >> Dockerfile
@@ -50,7 +62,7 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v3
         with:
-          context: /home/dingpf/docker-scratch/cvmfs_dunedaq
+          context: /home/${{ github.events.inputs.account-to-copy }}/docker-scratch/cvmfs_dunedaq
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -59,7 +71,7 @@ jobs:
         if: always()
         run: |
 
-            rm -f /home/dingpf/docker-scratch/cvmfs_dunedaq/Dockerfile
+            rm -f /home/${{ github.events.inputs.account-to-copy }}/docker-scratch/cvmfs_dunedaq/Dockerfile
             docker image prune -f
             docker container prune -f
             docker network prune -f
@@ -87,7 +99,7 @@ jobs:
           images: |
             ghcr.io/dune-daq/sl7-slim-externals
           tags: |
-            type=raw,value=v1.1
+            type=raw,value=v1.1${{ github.event.inputs.tag-suffix }}
 
       - name: prepare build dir
         run: |
@@ -96,12 +108,12 @@ jobs:
           cd $build_dir
           refresh_date=$(date +%y-%m-%d)
           echo "FROM ghcr.io/dune-daq/sl7-spack:latest" > Dockerfile
-          echo 'MAINTAINER Pengfei Ding "dingpf@fnal.gov"' >> Dockerfile
+          echo 'MAINTAINER John Freeman "jcfree@fnal.gov"' >> Dockerfile
           echo "ENV REFRESHED_AT $refresh_date" >> Dockerfile
-          echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:v1.1-initial /cvmfs/dunedaq.opensciencegrid.org/spack /cvmfs/dunedaq.opensciencegrid.org/spack" >> Dockerfile
-          echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:v1.1-initial /cvmfs/dunedaq.opensciencegrid.org/tools /cvmfs/dunedaq.opensciencegrid.org/tools" >> Dockerfile
-          echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:v1.1-initial /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh" >> Dockerfile
-          echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:v1.1-initial /cvmfs/dunedaq.opensciencegrid.org/pypi-repo /cvmfs/dunedaq.opensciencegrid.org/pypi-repo" >> Dockerfile
+          echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:v1.1${{ github.event.inputs.tag-suffix }}-initial /cvmfs/dunedaq.opensciencegrid.org/spack /cvmfs/dunedaq.opensciencegrid.org/spack" >> Dockerfile
+          echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:v1.1${{ github.event.inputs.tag-suffix }}-initial /cvmfs/dunedaq.opensciencegrid.org/tools /cvmfs/dunedaq.opensciencegrid.org/tools" >> Dockerfile
+          echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:v1.1${{ github.event.inputs.tag-suffix }}-initial /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh" >> Dockerfile
+          echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:v1.1${{ github.event.inputs.tag-suffix }}-initial /cvmfs/dunedaq.opensciencegrid.org/pypi-repo /cvmfs/dunedaq.opensciencegrid.org/pypi-repo" >> Dockerfile
           echo 'ENTRYPOINT ["/bin/bash"]' >> Dockerfile
 
       - name: Build and push Docker images
@@ -134,7 +146,7 @@ jobs:
           images: |
             ghcr.io/dune-daq/c8-slim-externals
           tags: |
-            type=raw,value=v1.1
+            type=raw,value=v1.1${{ github.event.inputs.tag-suffix }}
 
       - name: prepare build dir
         run: |
@@ -143,12 +155,12 @@ jobs:
           cd $build_dir
           refresh_date=$(date +%y-%m-%d)
           echo "FROM ghcr.io/dune-daq/c8-spack:latest" > Dockerfile
-          echo 'MAINTAINER Pengfei Ding "dingpf@fnal.gov"' >> Dockerfile
+          echo 'MAINTAINER John Freeman "jcfree@fnal.gov"' >> Dockerfile
           echo "ENV REFRESHED_AT $refresh_date" >> Dockerfile
-          echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:v1.1-initial /cvmfs/dunedaq.opensciencegrid.org/spack /cvmfs/dunedaq.opensciencegrid.org/spack" >> Dockerfile
-          echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:v1.1-initial /cvmfs/dunedaq.opensciencegrid.org/tools /cvmfs/dunedaq.opensciencegrid.org/tools" >> Dockerfile
-          echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:v1.1-initial /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh" >> Dockerfile
-          echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:v1.1-initial /cvmfs/dunedaq.opensciencegrid.org/pypi-repo /cvmfs/dunedaq.opensciencegrid.org/pypi-repo" >> Dockerfile
+          echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:v1.1${{ github.event.inputs.tag-suffix }}-initial /cvmfs/dunedaq.opensciencegrid.org/spack /cvmfs/dunedaq.opensciencegrid.org/spack" >> Dockerfile
+          echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:v1.1${{ github.event.inputs.tag-suffix }}-initial /cvmfs/dunedaq.opensciencegrid.org/tools /cvmfs/dunedaq.opensciencegrid.org/tools" >> Dockerfile
+          echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:v1.1${{ github.event.inputs.tag-suffix }}-initial /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh" >> Dockerfile
+          echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:v1.1${{ github.event.inputs.tag-suffix }}-initial /cvmfs/dunedaq.opensciencegrid.org/pypi-repo /cvmfs/dunedaq.opensciencegrid.org/pypi-repo" >> Dockerfile
           echo 'ENTRYPOINT ["/bin/bash"]' >> Dockerfile
 
       - name: Build and push Docker images
@@ -166,6 +178,11 @@ jobs:
       packages: write
       contents: read
     steps:
+      - name: Intro
+        run: |
+        echo "Will create a ghcr.io/dune-daq/alma9-slim-externals:v2.0${{ github.event.inputs.tag-suffix }} image"
+        echo "Image contents will include $HOSTNAME:/home/${{ github.events.inputs.account-to-copy }}/docker-scratch/cvmfs_dunedaq/spack/externals/ext-v2.0"
+
       - name: Log in to the Container registry
         uses: docker/login-action@v2
         with:
@@ -180,16 +197,16 @@ jobs:
           images: |
             ghcr.io/dune-daq/alma9-slim-externals
           tags: |
-            type=raw,value=v2.0-initial
+            type=raw,value=v2.0${{ github.event.inputs.tag-suffix }}-initial
 
       - name: prepare build dir
         id: prep_build_dir
         run: |
-          build_dir="/home/dingpf/docker-scratch/cvmfs_dunedaq"
+          build_dir="/home/${{ github.events.inputs.account-to-copy }}/docker-scratch/cvmfs_dunedaq"
           cd $build_dir
           refresh_date=$(date +%y-%m-%d)
           echo "FROM ghcr.io/dune-daq/alma9-spack:latest" > Dockerfile
-          echo 'MAINTAINER Pengfei Ding "dingpf@fnal.gov"' >> Dockerfile
+          echo 'MAINTAINER John Freeman "jcfree@fnal.gov"' >> Dockerfile
           echo "ENV REFRESHED_AT $refresh_date" >> Dockerfile
           echo "ADD spack/externals/ext-v2.0 /cvmfs/dunedaq.opensciencegrid.org/spack/externals/ext-v2.0" >> Dockerfile
           echo "RUN source /cvmfs/dunedaq.opensciencegrid.org/spack/externals/ext-v2.0/spack-0.20.0-gcc-12.1.0/spack-0.20.0/share/spack/setup-env.sh && spack uninstall -y llvm" >> Dockerfile
@@ -201,7 +218,7 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v3
         with:
-          context: /home/dingpf/docker-scratch/cvmfs_dunedaq
+          context: /home/${{ github.events.inputs.account-to-copy }}/docker-scratch/cvmfs_dunedaq
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -210,7 +227,7 @@ jobs:
         if: always()
         run: |
 
-            rm -f /home/dingpf/docker-scratch/cvmfs_dunedaq/Dockerfile
+            rm -f /home/${{ github.events.inputs.account-to-copy }}/docker-scratch/cvmfs_dunedaq/Dockerfile
             docker image prune -f
             docker container prune -f
             docker network prune -f
@@ -238,7 +255,7 @@ jobs:
           images: |
             ghcr.io/dune-daq/alma9-slim-externals
           tags: |
-            type=raw,value=v2.0
+            type=raw,value=v2.0${{ github.event.inputs.tag-suffix }}
 
       - name: prepare build dir
         run: |
@@ -247,12 +264,12 @@ jobs:
           cd $build_dir
           refresh_date=$(date +%y-%m-%d)
           echo "FROM ghcr.io/dune-daq/alma9-spack:latest" > Dockerfile
-          echo 'MAINTAINER Pengfei Ding "dingpf@fnal.gov"' >> Dockerfile
+          echo 'MAINTAINER John Freeman "jcfree@fnal.gov"' >> Dockerfile
           echo "ENV REFRESHED_AT $refresh_date" >> Dockerfile
-          echo "COPY --from=ghcr.io/dune-daq/alma9-slim-externals:v2.0-initial /cvmfs/dunedaq.opensciencegrid.org/spack /cvmfs/dunedaq.opensciencegrid.org/spack" >> Dockerfile
-          echo "COPY --from=ghcr.io/dune-daq/alma9-slim-externals:v2.0-initial /cvmfs/dunedaq.opensciencegrid.org/tools /cvmfs/dunedaq.opensciencegrid.org/tools" >> Dockerfile
-          echo "COPY --from=ghcr.io/dune-daq/alma9-slim-externals:v2.0-initial /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh" >> Dockerfile
-          echo "COPY --from=ghcr.io/dune-daq/alma9-slim-externals:v2.0-initial /cvmfs/dunedaq.opensciencegrid.org/pypi-repo /cvmfs/dunedaq.opensciencegrid.org/pypi-repo" >> Dockerfile
+          echo "COPY --from=ghcr.io/dune-daq/alma9-slim-externals:v2.0${{ github.event.inputs.tag-suffix }}-initial /cvmfs/dunedaq.opensciencegrid.org/spack /cvmfs/dunedaq.opensciencegrid.org/spack" >> Dockerfile
+          echo "COPY --from=ghcr.io/dune-daq/alma9-slim-externals:v2.0${{ github.event.inputs.tag-suffix }}-initial /cvmfs/dunedaq.opensciencegrid.org/tools /cvmfs/dunedaq.opensciencegrid.org/tools" >> Dockerfile
+          echo "COPY --from=ghcr.io/dune-daq/alma9-slim-externals:v2.0${{ github.event.inputs.tag-suffix }}-initial /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh /cvmfs/dunedaq.opensciencegrid.org/setup_dunedaq.sh" >> Dockerfile
+          echo "COPY --from=ghcr.io/dune-daq/alma9-slim-externals:v2.0${{ github.event.inputs.tag-suffix }}-initial /cvmfs/dunedaq.opensciencegrid.org/pypi-repo /cvmfs/dunedaq.opensciencegrid.org/pypi-repo" >> Dockerfile
           echo 'ENTRYPOINT ["/bin/bash"]' >> Dockerfile
 
       - name: Build and push Docker images
