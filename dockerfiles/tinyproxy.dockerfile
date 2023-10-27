@@ -5,6 +5,7 @@ ENV REFRESHED_AT 2023-07-08
 EXPOSE 8888
 
 RUN apk add tinyproxy && apk cache clean
+RUN sed -i.bak -e s/^Allow/#Allow/ /etc/tinyproxy/tinyproxy.conf
 
 USER nobody:nobody
 WORKDIR /tmp
