@@ -2,7 +2,7 @@ name: Build docker image with slim externals
 
 on:
   schedule:
-    - cron: "50 * * * *"
+    - cron: "3 * * * *"
 
   workflow_dispatch:
     inputs:
@@ -25,14 +25,15 @@ jobs:
       - name: Initialize variables
         run: |
           INPUT_SUFFIX=${{ github.event.inputs.tag-suffix }}
-          SUFFIX=${INPUT_SUFFIX:-""}
-          INPUT_USER=${{ github.event.inputs.account-to-copy }}
-          USER=${INPUT_USER:-"dingpf"}	
+          export SUFFIX=${INPUT_SUFFIX:-""}
+          INPUT_ACCT=${{ github.event.inputs.account-to-copy }}
+          export ACCT=${INPUT_ACCT:-"dingpf"}
+          echo "Set SUFFIX to ${SUFFIX}, set ACCT to ${ACCT}"	  
 
       - name: Intro
         run: |
           echo "Will create a ghcr.io/dune-daq/sl7-slim-externals:v1.1${SUFFIX} image"
-          echo "Image contents will include $HOSTNAME:/home/${USER}/docker-scratch/cvmfs_dunedaq/spack/externals/ext-v1.1"
+          echo "Image contents will include $HOSTNAME:/home/${ACCT}/docker-scratch/cvmfs_dunedaq/spack/externals/ext-v1.1"
 
       - name: Log in to the Container registry
         uses: docker/login-action@v2
