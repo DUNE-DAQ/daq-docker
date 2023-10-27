@@ -10,7 +10,7 @@ ENV UPS_OVERRIDE="-H Linux64bit+4.18-2.28"
 # Common system tools requried to for debugging and causing trouble
 RUN yum clean all \
  && yum -y install \
-    sudo pciutils iputils iproute telnet nc \
+    sudo pciutils bind-utils iputils iproute telnet nc \
  && yum clean all
  
 ENTRYPOINT ["/bin/bash"]
