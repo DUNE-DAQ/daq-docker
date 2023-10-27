@@ -2,7 +2,7 @@ name: Build docker image with slim externals
 
 on:
   schedule:
-    - cron: "40 * * * *"
+    - cron: "50 * * * *"
 
   workflow_dispatch:
     inputs:
@@ -31,8 +31,8 @@ jobs:
 
       - name: Intro
         run: |
-          echo "Will create a ghcr.io/dune-daq/sl7-slim-externals:v1.1${{ github.event.inputs.tag-suffix }} image"
-          echo "Image contents will include $HOSTNAME:/home/${{ github.event.inputs.account-to-copy }}/docker-scratch/cvmfs_dunedaq/spack/externals/ext-v1.1"
+          echo "Will create a ghcr.io/dune-daq/sl7-slim-externals:v1.1${SUFFIX} image"
+          echo "Image contents will include $HOSTNAME:/home/${USER}/docker-scratch/cvmfs_dunedaq/spack/externals/ext-v1.1"
 
       - name: Log in to the Container registry
         uses: docker/login-action@v2
