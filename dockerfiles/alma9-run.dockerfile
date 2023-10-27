@@ -8,7 +8,7 @@ ENV REFRESHED_AT 2023-10-04
 # Common system tools requried to for debugging and causing trouble
 RUN yum clean all \
  && yum -y install \
-    sudo pciutils iputils iproute telnet nc \
+    sudo pciutils bind-utils iputils iproute telnet nc  \
  && yum clean all
  
 ENTRYPOINT ["/bin/bash"]
