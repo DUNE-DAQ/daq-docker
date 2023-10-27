@@ -2,7 +2,7 @@ name: Build docker image with slim externals
 
 on:
   schedule:
-    - cron: "30 * * * *"
+    - cron: "40 * * * *"
 
   workflow_dispatch:
     inputs:
