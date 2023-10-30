@@ -1,4 +1,4 @@
-name: Build docker image with slim externals
+name: Build docker image with slim externals manually
 
 on:
   workflow_dispatch:
