@@ -52,6 +52,7 @@ jobs:
           mkdir -p $build_dir
           cd $build_dir
           cp ${{ github.workspace }}/daq-docker/dockerfiles/python-tiny-proxy.dockerfile $build_dir/Dockerfile
+          cp ${{ github.workspace }}/daq-docker/dockerfiles/python-tiny-proxy.py $build_dir/python-tiny-proxy.py
       
       - name: Build and push Docker images
         uses: docker/build-push-action@v3
