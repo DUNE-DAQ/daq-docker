@@ -34,11 +34,11 @@ jobs:
       - name: prepare build dir
         id: prep_build_dir
         run: |
-          build_dir="/home/dingpf/docker-scratch/cvmfs_dunedaq"
+          build_dir="/home/jcfree/docker-scratch/cvmfs_dunedaq"
           cd $build_dir
           refresh_date=$(date +%y-%m-%d)
           echo "FROM ghcr.io/dune-daq/sl7-spack:latest" > Dockerfile
-          echo 'MAINTAINER Pengfei Ding "dingpf@fnal.gov"' >> Dockerfile
+          echo 'MAINTAINER John Freeman "jcfree@fnal.gov"' >> Dockerfile
           echo "ENV REFRESHED_AT $refresh_date" >> Dockerfile
           echo "ADD spack/externals/ext-v1.1 /cvmfs/dunedaq.opensciencegrid.org/spack/externals/ext-v1.1" >> Dockerfile
           echo "RUN source /cvmfs/dunedaq.opensciencegrid.org/spack/externals/ext-v1.1/spack-0.20.0-gcc-12.1.0/spack-0.20.0/share/spack/setup-env.sh && spack uninstall -y llvm" >> Dockerfile
@@ -50,7 +50,7 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v3
         with:
-          context: /home/dingpf/docker-scratch/cvmfs_dunedaq
+          context: /home/jcfree/docker-scratch/cvmfs_dunedaq
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -59,7 +59,7 @@ jobs:
         if: always()
         run: |
 
-            rm -f /home/dingpf/docker-scratch/cvmfs_dunedaq/Dockerfile
+            rm -f /home/jcfree/docker-scratch/cvmfs_dunedaq/Dockerfile
             docker image prune -f
             docker container prune -f
             docker network prune -f
@@ -96,7 +96,7 @@ jobs:
           cd $build_dir
           refresh_date=$(date +%y-%m-%d)
           echo "FROM ghcr.io/dune-daq/sl7-spack:latest" > Dockerfile
-          echo 'MAINTAINER Pengfei Ding "dingpf@fnal.gov"' >> Dockerfile
+          echo 'MAINTAINER John Freeman "jcfree@fnal.gov"' >> Dockerfile
           echo "ENV REFRESHED_AT $refresh_date" >> Dockerfile
           echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:v1.1-initial /cvmfs/dunedaq.opensciencegrid.org/spack /cvmfs/dunedaq.opensciencegrid.org/spack" >> Dockerfile
           echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:v1.1-initial /cvmfs/dunedaq.opensciencegrid.org/tools /cvmfs/dunedaq.opensciencegrid.org/tools" >> Dockerfile
@@ -143,7 +143,7 @@ jobs:
           cd $build_dir
           refresh_date=$(date +%y-%m-%d)
           echo "FROM ghcr.io/dune-daq/c8-spack:latest" > Dockerfile
-          echo 'MAINTAINER Pengfei Ding "dingpf@fnal.gov"' >> Dockerfile
+          echo 'MAINTAINER John Freeman "jcfree@fnal.gov"' >> Dockerfile
           echo "ENV REFRESHED_AT $refresh_date" >> Dockerfile
           echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:v1.1-initial /cvmfs/dunedaq.opensciencegrid.org/spack /cvmfs/dunedaq.opensciencegrid.org/spack" >> Dockerfile
           echo "COPY --from=ghcr.io/dune-daq/sl7-slim-externals:v1.1-initial /cvmfs/dunedaq.opensciencegrid.org/tools /cvmfs/dunedaq.opensciencegrid.org/tools" >> Dockerfile
@@ -185,11 +185,11 @@ jobs:
       - name: prepare build dir
         id: prep_build_dir
         run: |
-          build_dir="/home/dingpf/docker-scratch/cvmfs_dunedaq"
+          build_dir="/home/jcfree/docker-scratch/cvmfs_dunedaq"
           cd $build_dir
           refresh_date=$(date +%y-%m-%d)
           echo "FROM ghcr.io/dune-daq/alma9-spack:latest" > Dockerfile
-          echo 'MAINTAINER Pengfei Ding "dingpf@fnal.gov"' >> Dockerfile
+          echo 'MAINTAINER John Freeman "jcfree@fnal.gov"' >> Dockerfile
           echo "ENV REFRESHED_AT $refresh_date" >> Dockerfile
           echo "ADD spack/externals/ext-v2.0 /cvmfs/dunedaq.opensciencegrid.org/spack/externals/ext-v2.0" >> Dockerfile
           echo "RUN source /cvmfs/dunedaq.opensciencegrid.org/spack/externals/ext-v2.0/spack-0.20.0-gcc-12.1.0/spack-0.20.0/share/spack/setup-env.sh && spack uninstall -y llvm" >> Dockerfile
@@ -201,7 +201,7 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v3
         with:
-          context: /home/dingpf/docker-scratch/cvmfs_dunedaq
+          context: /home/jcfree/docker-scratch/cvmfs_dunedaq
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -210,7 +210,7 @@ jobs:
         if: always()
         run: |
 
-            rm -f /home/dingpf/docker-scratch/cvmfs_dunedaq/Dockerfile
+            rm -f /home/jcfree/docker-scratch/cvmfs_dunedaq/Dockerfile
             docker image prune -f
             docker container prune -f
             docker network prune -f
@@ -247,7 +247,7 @@ jobs:
           cd $build_dir
           refresh_date=$(date +%y-%m-%d)
           echo "FROM ghcr.io/dune-daq/alma9-spack:latest" > Dockerfile
-          echo 'MAINTAINER Pengfei Ding "dingpf@fnal.gov"' >> Dockerfile
+          echo 'MAINTAINER John Freeman "jcfree@fnal.gov"' >> Dockerfile
           echo "ENV REFRESHED_AT $refresh_date" >> Dockerfile
           echo "COPY --from=ghcr.io/dune-daq/alma9-slim-externals:v2.0-initial /cvmfs/dunedaq.opensciencegrid.org/spack /cvmfs/dunedaq.opensciencegrid.org/spack" >> Dockerfile
           echo "COPY --from=ghcr.io/dune-daq/alma9-slim-externals:v2.0-initial /cvmfs/dunedaq.opensciencegrid.org/tools /cvmfs/dunedaq.opensciencegrid.org/tools" >> Dockerfile
