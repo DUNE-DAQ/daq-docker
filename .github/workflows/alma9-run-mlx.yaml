@@ -1,4 +1,4 @@
-name: Build alma9-run-mellanox docker image
+name: Build alma9-run-mlx docker image
 
 on:
   schedule:
@@ -9,7 +9,7 @@ on:
     tags:
       - 'v*'
     paths:
-      - dockerfiles/alma9-run-mellanox.dockerfile
+      - dockerfiles/alma9-run-mlx.dockerfile
 
   workflow_dispatch:
 
@@ -40,7 +40,7 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-            ghcr.io/DUNE-DAQ/alma9-run-mellanox
+            ghcr.io/DUNE-DAQ/alma9-run-mlx
           tags: |
             type=raw,value=latest
             type=ref,event=branch
@@ -51,7 +51,7 @@ jobs:
           build_dir="${{ github.workspace }}/docker-build"
           mkdir -p $build_dir
           cd $build_dir
-          cp ${{ github.workspace }}/daq-docker/dockerfiles/alma9-run-mellanox.dockerfile $build_dir/Dockerfile
+          cp ${{ github.workspace }}/daq-docker/dockerfiles/alma9-run-mlx.dockerfile $build_dir/Dockerfile
       
       - name: Build and push Docker images
         uses: docker/build-push-action@v3
