@@ -9,7 +9,7 @@ ENV REFRESHED_AT 2023-10-04
 RUN yum clean all \
  && yum -y install \
     sudo pciutils bind-utils iputils iproute telnet nc  \
- && 
+ && yum clean all
 
 #RUN dnf config-manager --add-repo https://linux.mellanox.com/public/repo/mlnx_ofed/${VERSION}/rhel9.2/mellanox_mlnx_ofed.repo
 ARG VERSION=latest
