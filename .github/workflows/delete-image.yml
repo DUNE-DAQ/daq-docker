@@ -1,0 +1,21 @@
+name: Permanently Delete an Image
+
+on:
+  workflow_dispatch:
+    inputs:
+      image-id:
+        description: 'ID of the image to permanently remove'
+        default: ''
+
+jobs:
+  permanently_delete_image:
+    name: permanently delete image
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: permanently delete an image with the provided ID
+        uses: actions/delete-package-versions@v4
+        with:
+          package-version-ids: ${{ github.event.inputs.image-id }}
