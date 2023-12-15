@@ -3,6 +3,9 @@ name: Permanently Delete an Image
 on:
   workflow_dispatch:
     inputs:
+      image-name:
+        description: 'Name of the image to permanently remove'
+        default: ''
       image-id:
         description: 'ID of the image to permanently remove'
         default: ''
@@ -19,3 +22,5 @@ jobs:
         uses: actions/delete-package-versions@v4
         with:
           package-version-ids: ${{ github.event.inputs.image-id }}
+          package-name: ${{ github.event.inputs.image-name }}
+          package-type: container
