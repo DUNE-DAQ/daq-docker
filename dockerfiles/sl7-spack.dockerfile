@@ -8,8 +8,7 @@ ENV REFRESHED_AT 2024-05-23
 
 RUN yum clean all \
  && yum -y install \
- && https://repo.ius.io/ius-release-el7.rpm \
- && https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
+ && yum -y install epel-release \
  && yum -y update \
  && yum -y install libzstd git236 \
     make redhat-lsb-core glibc-devel \
