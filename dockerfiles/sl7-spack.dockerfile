@@ -2,7 +2,7 @@
 
 FROM scientificlinux/sl:7
 
-ENV REFRESHED_AT 2022-04-04
+ENV REFRESHED_AT 2024-05-23
 
 # Tools for building the DAQ release
 
@@ -32,6 +32,7 @@ RUN yum clean all \
     bzip2-libs unzip librdmacm libuuid-devel \
     python36-setuptools_scm python36-pip python3-apipkg \
     python36-PyYAML numactl-devel libbsd-devel \
+    libusbx-devel \
  && yum clean all
 
 # Install libyaml and pyyaml

@@ -3,7 +3,7 @@
 #FROM centos:centos8
 FROM quay.io/centos/centos:stream8
 
-ENV REFRESHED_AT 2022-03-30
+ENV REFRESHED_AT 2024-05-23
 
 ENV UPS_OVERRIDE="-H Linux64bit+4.18-2.28"
 
@@ -36,6 +36,7 @@ RUN yum clean all \
     gcc-gfortran libgcc bzip2 bzip2-devel bzip2-libs unzip librdmacm \
     libuuid-devel python38-setuptools python3-setuptools_scm python38-pip \
     python3-apipkg python38-pyyaml numactl-devel libbsd-devel \
+    libusbx-devel \
  && yum clean all
 
 RUN mkdir -p /dunedaq/run && chmod go+rw /dunedaq/run

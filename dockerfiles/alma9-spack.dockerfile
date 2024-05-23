@@ -2,7 +2,7 @@
 
 FROM almalinux:9
 
-ENV REFRESHED_AT 2023-02-27
+ENV REFRESHED_AT 2024-05-23
 
 # Tools for building the DAQ release
 
@@ -30,6 +30,7 @@ RUN yum clean all \
     gcc-gfortran libgcc bzip2 bzip2-devel bzip2-libs unzip librdmacm \
     libuuid-devel python3-setuptools python3-setuptools_scm python3-pip \
     python3-apipkg python3-pyyaml \
+    libusbx-devel \
  && yum clean all
 
 RUN yum clean all \
