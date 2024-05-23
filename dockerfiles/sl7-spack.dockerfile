@@ -7,7 +7,6 @@ ENV REFRESHED_AT 2024-05-23
 # Tools for building the DAQ release
 
 RUN yum clean all \
- && yum -y install \
  && yum -y install epel-release \
  && yum -y update \
  && yum -y install libzstd git236 \
