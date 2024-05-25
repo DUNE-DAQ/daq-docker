@@ -9,7 +9,7 @@ ENV REFRESHED_AT 2024-05-23
 RUN yum clean all \
  && yum -y install epel-release \
  && yum -y update \
- && yum -y install libzstd git236 \
+ && yum -y install libzstd git \
     make redhat-lsb-core glibc-devel \
     openssl-devel xz-devel bzip2-devel libcurl-devel \
     openssl libzstd-devel cyrus-sasl-devel xxhash xxhash-libs \
