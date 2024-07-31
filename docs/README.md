@@ -4,8 +4,6 @@
 [![alma9-run](https://github.com/DUNE-DAQ/daq-docker/actions/workflows/alma9-run.yaml/badge.svg)](https://github.com/DUNE-DAQ/daq-docker/actions/workflows/alma9-run.yaml)
 [![alma9-spack](https://github.com/DUNE-DAQ/daq-docker/actions/workflows/alma9-spack.yaml/badge.svg)](https://github.com/DUNE-DAQ/daq-docker/actions/workflows/alma9-spack.yaml)
 [![alma9](https://github.com/DUNE-DAQ/daq-docker/actions/workflows/alma9.yaml/badge.svg)](https://github.com/DUNE-DAQ/daq-docker/actions/workflows/alma9.yaml)
-[![c8](https://github.com/DUNE-DAQ/daq-docker/actions/workflows/c8.yaml/badge.svg)](https://github.com/DUNE-DAQ/daq-docker/actions/workflows/c8.yaml)
-[![c8-minimal](https://github.com/DUNE-DAQ/daq-docker/actions/workflows/c8-minimal.yaml/badge.svg)](https://github.com/DUNE-DAQ/daq-docker/actions/workflows/c8-minimal.yaml)
 
 This repository houses Dockerfiles used to create images used for continuous integration the [DUNE DAQ](https://github.com/DUNE-DAQ) organization. New commits to the `develop` branch will trigger an automatic build of the image with the tag `latest`. The images are also built on an automatic, weekly schedule. 
 
