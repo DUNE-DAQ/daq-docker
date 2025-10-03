@@ -29,7 +29,7 @@ RUN yum clean all \
     gcc-gfortran libgcc bzip2 bzip2-devel unzip librdmacm \
     libuuid-devel python3-setuptools python3-pip \
     python3-pyyaml \
-    libusb-devel \
+    libusb1-devel \
  && yum clean all
 
 RUN yum clean all \
