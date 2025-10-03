@@ -24,8 +24,8 @@ RUN yum clean all \
  && yum clean all
 
 RUN yum clean all \
- && yum -y install python3 python3-devel python3-libs java-17-openjdk \
-    java-17-openjdk-devel java-17-openjdk-headless gcc gcc-c++ \
+ && yum -y install python3 python3-devel python3-libs java-21-openjdk \
+    java-21-openjdk-devel java-21-openjdk-headless gcc gcc-c++ \
     gcc-gfortran libgcc bzip2 bzip2-devel unzip librdmacm \
     libuuid-devel python3-setuptools python3-pip \
     python3-pyyaml \
