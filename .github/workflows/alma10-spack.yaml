@@ -1,6 +1,16 @@
 name: Build alma10-spack docker image
 
 on:
+  schedule:
+    - cron: "0 5 * * 2"
+
+  push:
+    branches: [ develop ]
+    tags:
+      - 'v*'
+    paths:
+      - dockerfiles/alma10-spack.dockerfile
+
   workflow_dispatch:
 
 jobs:
@@ -13,7 +23,40 @@ jobs:
       contents: read
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: DUNE-DAQ/daq-docker
           path: daq-docker 
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: |
+            ghcr.io/DUNE-DAQ/alma10-spack
+          tags: |
+            type=raw,value=latest
+            type=ref,event=branch
+            type=ref,event=tag
+
+      - name: prepare build dir
+        run: |
+          build_dir="${{ github.workspace }}/docker-build"
+          mkdir -p $build_dir
+          cd $build_dir
+          cp ${{ github.workspace }}/daq-docker/dockerfiles/alma10-spack.dockerfile $build_dir/Dockerfile
+
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v7
+        with:
+          context: ${{ github.workspace }}/docker-build
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
